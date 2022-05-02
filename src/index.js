@@ -1,13 +1,47 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const initState = {
+  lang: "en",
+  country: "egypt",
+  currency: "USD",
+};
+
+function reducer(state = initState, action) {
+  if (action.type === "CHANGE_LANG") {
+    return {
+      ...state,
+      lang: action.payload,
+    };
+  }
+  if (action.type === "CHANGE_COUNTRY") {
+    return {
+      ...state,
+      country: action.payload,
+    };
+  }
+  if (action.type === "CHANGE_CURRENCY") {
+    return {
+      ...state,
+      currency: action.payload,
+    };
+  }
+  return state;
+}
+
+const store = createStore(reducer);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 

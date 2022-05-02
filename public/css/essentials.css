@@ -1,0 +1,43 @@
+.top-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eeeeee;
+  border: gray solid 1px;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+.social-icons {
+  display: flex;
+  gap: 20px;
+  padding-left: 50px;
+}
+
+.site-config {
+  display: flex;
+  gap: 20px;
+}
+
+.config-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.config-wrapper select {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.login-button {
+  padding: 0 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .top-nav {
+    display: none;
+  }
+}

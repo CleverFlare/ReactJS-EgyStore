@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Righteous&family=Teko&display=swap');
+@import url('icons.css');
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'Permanent Marker', cursive;
+  font-family: 'Righteous', cursive;
+  font-family: 'Teko', sans-serif;
+  font-size: 1.1rem;
+}
+
+#root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #eeeeee;
+  transition: .5s;
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.292);
+}
+
+body {
+  pointer-events: none;
+}
+body * {
+  pointer-events: all;
+}
+
+.test {
+  height: 150vh;
+}
+
+.first-button-style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  background-color: #f5b841;
+  border: none;
+}
+
+.second-button-style {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  background-color: white;
+  border: none;
+}

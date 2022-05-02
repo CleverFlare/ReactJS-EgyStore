@@ -1,0 +1,44 @@
+.top-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: gray solid 1px;
+}
+
+.top-nav__social-media-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-left: 50px;
+}
+.top-nav__social-media-icons a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: initial;
+  text-decoration: none;
+  text-align: center;
+}
+
+.top-nav__site-configs {
+  display: flex;
+  gap: 20px;
+}
+
+.top-nav__config-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.top-nav__config-wrapper label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.top-nav__config-wrapper select {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}

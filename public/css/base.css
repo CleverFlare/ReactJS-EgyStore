@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Righteous&family=Teko&display=swap');
+:root {
+  --baseColor: #f5b840;
+  --baseColorHover: #ffd889;
+  --baseColorActive: #cfa653;
+  --navbarBGColor: #103045;
+}
+
+body {
+  padding-top: 32px;
+  background-color: #eeeeee;
+}
+
+a {
+  color: initial;
+  text-decoration: none;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'Permanent Marker', cursive;
+  font-family: 'Righteous', cursive;
+  font-family: 'Teko', sans-serif;
+  font-size: 1.1rem;
+}
+.primary-button {
+  background-color: var(--baseColor);
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.primary-button:hover {
+  background-color: var(--baseColorHover);
+}
+.primary-button:active {
+  background-color: var(--baseColorActive);
+}
+.secondary-button {
+  background-color: white;
+  color: black;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.secondary-button:active {
+  background-color: #d7d7d7;
+}
+.primary-list-heading {
+  padding: 5px 10px;
+  background-color: var(--baseColor);
+  font-size: 1.3rem;
+}
+.secondary-list-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--baseColor);
+  font-size: 1.3rem;
+}
+.secondary-list-heading .button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+.secondary-list-heading .left-list-button,
+.secondary-list-heading .right-list-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  background-color: #303030;
+  color: white;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  box-sizing: content-box;
+  cursor: pointer;
+}
+.product-list {
+  display: flex;
+  flex-direction: column;
+}
+.product-list .categories-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: white;
+}
+.product-list .categories-list .categories-item {
+  flex: 1;
+  color: black;
+  text-decoration: none;
+  padding: 5px 20px;
+}
+.product-list .categories-list .categories-item:hover {
+  background-color: #e3e3e3;
+}
+.product-list .product-list-items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background-color: white;
+  height: 100%;
+}
+.product-list .product-list-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: calc(100%/3 - 50px);
+  min-width: 200px;
+}
+.product-list .product-list-item .product-list-item-left-sec {
+  object-fit: cover;
+  width: 50%;
+  flex: 1;
+}
+.product-list .product-list-item .product-list-item-right-sec {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 50%;
+  flex: 1;
+}
+.product-name {
+  text-decoration: none;
+}
+.product-rate {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  list-style-type: none;
+}
+.product-rate * {
+  cursor: pointer;
+}
+.product-rate .stared {
+  color: #e1c828;
+}
+.product-list .product-list-items hr {
+  margin: 0 auto;
+  width: 90%;
+}
+.testi-canvas {
+  display: flex;
+  background-color: white;
+  position: relative;
+  height: 380px;
+}
+.testi-items {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  left: 0;
+  transition: .5s;
+}
+.testi-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+}
+.testi-avatar {
+  width: 50%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.testi-item hr {
+  width: 50%;
+}
+
+.not-responsive {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: aqua;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000000;
+}
+.not-responsive h1 {
+  font-size: 5vw;
+}
+
+.container {
+  margin: 0 auto;
+  width: 90vw;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    padding-top: 0;
+  }
+  .page-body {
+    padding-top: 61.3px;
+  }
+  .container {
+    width: 95vw;
+  }
+}
+
+/* @media screen and (max-width: 1248px) {
+  :root {
+    overflow: hidden;
+  }
+  .not-responsive {
+    display: flex;
+  }
+} */

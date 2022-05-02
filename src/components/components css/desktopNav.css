@@ -1,0 +1,54 @@
+.desktop-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #103045;
+}
+
+.desktop-nav.arabic {
+  flex-direction: row-reverse;
+}
+.desktop-nav.arabic .desktop-nav__left-side  {
+  flex-direction: row-reverse;
+}
+
+.desktop-nav .first-button-style {
+  color: black;
+}
+
+.desktop-nav__left-side {
+  display: flex;
+}
+
+.desktop-nav a,
+.desktop-nav button {
+  text-decoration: none;
+  color: white;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.desktop-nav__right-side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.desktop-nav #avatar {
+  appearance: none;
+  background-image: url('https://t4.ftcdn.net/jpg/02/45/56/35/360_F_245563558_XH9Pe5LJI2kr7VQuzQKAjAbz9PAyejG1.jpg');
+  background-position: center;
+  background-size: cover;
+  height: 35px;
+  aspect-ratio: 1/1;
+  padding: 0;
+  margin: 0 15px;
+  border-radius: 50%;
+  outline: 0px solid rgba(255, 255, 255, .3);
+  transition: .5s;
+  cursor: pointer;
+}
+
+.desktop-nav #avatar:hover {
+  outline: 4px solid rgba( 255, 255, 255, .3);
+}

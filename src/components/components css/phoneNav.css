@@ -1,0 +1,111 @@
+#root.moveForMenu {
+  position: absolute;
+  top: 0;
+  left: -80vw;
+  z-index: 1000;
+}
+#root.moveForMenu .phone-nav {
+  left: -80vw;
+}
+body:has(.moveForMenu) {
+  overflow: hidden;
+}
+
+.phone-nav {
+  position:fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background-color: #f5b841;
+  box-shadow: 0 3px 20px rgb(176, 176, 176);
+  padding: 10px 0;
+  transition: .5s;
+}
+
+.phone-nav__items-wrapper {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.phone-nav__buttons-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.phone-nav__vital-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.105);
+}
+
+.phone-nav__logo {
+  height: 50px;
+}
+
+.phone-nav__phone-menu {
+  display: flex;
+  justify-content: flex-end;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #103045;
+  z-index: -1;
+}
+
+.phone-menu__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 80%;
+  height: 100%;
+}
+
+.phone-nav__phone-menu #avatar {
+  appearance: none;
+  background-image: url('https://t4.ftcdn.net/jpg/02/45/56/35/360_F_245563558_XH9Pe5LJI2kr7VQuzQKAjAbz9PAyejG1.jpg');
+  background-position: center;
+  background-size: cover;
+  height: 40vw;
+  aspect-ratio: 1/1;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  outline: 0px solid rgba(255, 255, 255, .3);
+  transition: .5s;
+  cursor: pointer;
+}
+
+.phone-nav #avatar:hover {
+  outline: 4px solid rgba( 255, 255, 255, .3);
+}
+
+.phone-nav__anchor-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.phone-nav__anchor-list a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  padding: 15px 0;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+.phone-nav__anchor-list a * {
+  font-size: 5vw;
+}

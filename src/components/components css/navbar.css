@@ -1,0 +1,11 @@
+.phone {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .desktop {
+    display: none;
+  }
+  .phone {
+    display: block;
+  }
+}
