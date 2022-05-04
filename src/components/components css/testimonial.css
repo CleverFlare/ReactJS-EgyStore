@@ -1,0 +1,75 @@
+.arabic .testimonial__canvas, .arabic .testimonial__navigate-buttons {
+  direction: ltr;
+}
+
+.testimonial {
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 15px;
+  background-color: #f5b840;
+}
+
+.testimonial__heading h2 {
+  font-size: 1.3rem;
+}
+
+.testimonial__navigate-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.testmionial__navigate-left,
+.testmionial__navigate-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  background-color: #303030;
+  color: white;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  box-sizing: content-box;
+  cursor: pointer;
+}
+
+.testimonial__canvas {
+  display: flex;
+  background-color: white;
+  overflow: hidden;
+}
+
+.testimonial__figure {
+  display: flex;
+  flex-direction: row;
+  transform: translateX(0);
+  transition: .5s;
+}
+
+.testimonial__figure-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.testimonial__item-avatar {
+  width: 50%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.testimonial__figure-item hr {
+  width: 50%;
+}

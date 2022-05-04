@@ -20,6 +20,8 @@ body:has(.moveForMenu) {
   box-shadow: 0 3px 20px rgb(176, 176, 176);
   padding: 10px 0;
   transition: .5s;
+  z-index: 10000;
+  direction: ltr;
 }
 
 .phone-nav__items-wrapper {
@@ -69,6 +71,7 @@ body:has(.moveForMenu) {
   gap: 20px;
   width: 80%;
   height: 100%;
+  position: relative;
 }
 
 .phone-nav__phone-menu #avatar {
@@ -108,4 +111,35 @@ body:has(.moveForMenu) {
 }
 .phone-nav__anchor-list a * {
   font-size: 5vw;
+}
+.phone-nav__anchor-list a:last-child {
+  background-color: #f5b841;
+}
+
+.phone-nav__site-config {
+  display: flex;
+  gap: 1px;
+  grid-column: 1 / -1;
+  background-color: gray;
+}
+.phone-nav__site-config select {
+  flex: 1;
+  color: white;
+  background-color: #f5b841;
+  border: none;
+  outline: none;
+}
+
+.phone-menu__pick-lang {
+  padding: 0 10px;
+  color: white;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+.phone-menu__pick-lang option {
+  color: black;
 }

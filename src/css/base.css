@@ -1,12 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Righteous&family=Teko&display=swap');
 @import url('icons.css');
+@import url('https://fonts.googleapis.com/css2?family=Jomhuria&family=Kanit:wght@200&family=Rakkas&display=swap');
+
 * {
   padding: 0;
   margin: 0;
-  font-family: 'Permanent Marker', cursive;
-  font-family: 'Righteous', cursive;
-  font-family: 'Teko', sans-serif;
   font-size: 1.1rem;
+}
+
+body {
+  font-family: 'Teko', sans-serif;
+}
+body:has(.App.arabic) .phone-nav__phone-menu {
+  font-family: 'Rakkas', cursive;
 }
 
 #root {
@@ -14,9 +20,27 @@
   top: 0;
   left: 0;
   width: 100%;
+  min-height: 100vh;
   background-color: #eeeeee;
   transition: .5s;
   box-shadow: 10px 0 30px rgba(0, 0, 0, 0.292);
+  direction: ltr;
+}
+
+body * {
+  font-family: 'Teko', sans-serif;
+}
+body.arabic .excluded-fonts {
+  font-family: 'Teko', sans-serif;
+}
+body.arabic .excluded-fonts * {
+  font-family: 'Teko', sans-serif;
+}
+body.arabic * {
+  font-family: 'Rakkas', cursive;
+}
+body.arabic .top-nav {
+  font-family: 'Teko', sans-serif;
 }
 
 body {
@@ -24,6 +48,10 @@ body {
 }
 body * {
   pointer-events: all;
+}
+
+a {
+  color: rgb(0, 123, 185);
 }
 
 .test {
@@ -46,4 +74,13 @@ body * {
   text-transform: uppercase;
   background-color: white;
   border: none;
+}
+
+@keyframes skeleton-background {
+  from {
+    background-color: rgb(239, 239, 239);
+  }
+  to {
+    background-color: rgb(215, 215, 215);
+  }
 }

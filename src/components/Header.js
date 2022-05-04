@@ -3,6 +3,11 @@ import Container from "./Container";
 import { connect } from "react-redux";
 
 const Header = ({ lang }) => {
+  const langWords = {
+    search: lang === "en" ? "Search..." : "بحث...",
+    searchButton: lang === "en" ? "Search" : "بحث",
+    cart: lang === "en" ? "Your Cart" : "عربة تسوقك",
+  };
   return (
     <Container>
       <div className={"header-sec" + ` ${lang === "ar" && "arabic"}`}>
@@ -10,16 +15,16 @@ const Header = ({ lang }) => {
         <div className="header-sec__searchbar-wrapper">
           <input
             type="search"
-            placeholder={lang === "en" ? "Search..." : "بحث..."}
+            placeholder={langWords.search}
             autoComplete="off"
           />
           <button className="search-button first-button-style">
-            {lang === "en" ? "Search" : "بحث"}
+            {langWords.searchButton}
           </button>
         </div>
         <button className="header-sec__cart-button second-button-style">
           <span className="icon-shopping-cart"></span>
-          <p>{lang === "en" ? "Your Cart" : "عربة التسوقك"}</p>
+          <p>{langWords.cart}</p>
         </button>
       </div>
     </Container>

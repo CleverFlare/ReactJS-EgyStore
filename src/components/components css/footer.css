@@ -1,0 +1,13 @@
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+  background-color: #103045;
+}
+
+footer .copy-right-bla-bla-bla {
+  text-align: center;
+  color: white;
+}

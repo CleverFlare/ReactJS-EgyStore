@@ -1,15 +1,13 @@
+.arabic .desktop-nav {
+  direction: rtl;
+}
+
 .desktop-nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   background-color: #103045;
-}
-
-.desktop-nav.arabic {
-  flex-direction: row-reverse;
-}
-.desktop-nav.arabic .desktop-nav__left-side  {
-  flex-direction: row-reverse;
+  margin-bottom: 30px;
 }
 
 .desktop-nav .first-button-style {

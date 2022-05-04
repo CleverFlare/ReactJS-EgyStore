@@ -1,0 +1,33 @@
+.arabic .categories-list {
+  direction: rtl;
+}
+
+.categories-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.categories-list__heading {
+  padding: 5px 15px;
+  font-size: 1.3rem;
+  background-color: #f5b841;
+}
+
+.categories-list__list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: white;
+}
+
+.categories-list__list-item {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 0 20px;
+  color: initial;
+  text-decoration: none;
+}
+.categories-list__list-item:hover {
+  background-color: #e9e9e9;
+}

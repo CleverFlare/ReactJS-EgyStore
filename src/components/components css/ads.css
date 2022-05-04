@@ -1,0 +1,26 @@
+.ads {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  gap: 20px;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid gray;
+  box-sizing: border-box;
+}
+
+.ad-num-1,
+.ad-num-2 {
+  flex: auto;
+  max-width: 100%;
+  min-width: 50%;
+  object-fit: contain;
+  object-position: center;
+}
+
+@media screen and (max-width: 1078px) {
+  .ads {
+    flex-wrap: wrap;
+  }
+}

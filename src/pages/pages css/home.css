@@ -1,0 +1,54 @@
+.arabic .content-grid {
+  direction: rtl;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: minmax(auto, 250px) auto auto minmax(auto, 250px);
+  grid-template-rows: auto auto;
+  grid-template-areas: 
+  "categories carousel carousel best-sellers"
+  "on-sale tranding tranding tranding"
+  "testimonial ads ads ads"
+  "brands brands brands brands";
+  gap: 20px;
+}
+
+.content-grid *:nth-child(1) {
+  grid-area: categories;
+}
+
+.content-grid *:nth-child(2) {
+  grid-area: carousel;
+}
+
+.content-grid *:nth-child(3) {
+  grid-area: best-sellers;
+}
+
+.content-grid *:nth-child(4) {
+  grid-area: on-sale;
+}
+
+.content-grid *:nth-child(5) {
+  grid-area: tranding;
+}
+
+.content-grid *:nth-child(6) {
+  grid-area: testimonial;
+}
+
+.content-grid *:nth-child(7) {
+  grid-area: ads;
+}
+
+.content-grid *:nth-child(8) {
+  grid-area: brands;
+}
+
+@media screen and (max-width: 1078px) {
+  .content-grid {
+    display: flex;
+    flex-direction: column;
+  }
+}

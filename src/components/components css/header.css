@@ -1,3 +1,7 @@
+.arabic .header-sec {
+  direction: rtl;
+}
+
 .header-sec {
   display: grid;
   grid-template-columns: 250px auto auto;
@@ -5,15 +9,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 50px 0;
-}
-.header-sec.arabic {
-  grid-auto-flow: row;
-}
-.header-sec.arabic .header-sec__searchbar-wrapper {
-  flex-direction: row-reverse;
-}
-.header-sec.arabic .header-sec__searchbar-wrapper input {
-  direction: rtl;
 }
 
 .header-sec__logo {
