@@ -5,9 +5,13 @@
   padding: 50px 0;
 }
 
+.brands-list__image-wrapper {
+  flex: 1;
+  max-width: 100px;
+}
+
 .brands-list img {
-  width: 100px;
-  height: 100px;
+  width: 100%;
   object-fit: contain;
   object-position: center;
 }

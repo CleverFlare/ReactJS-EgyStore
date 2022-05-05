@@ -4,14 +4,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createStore, applyMiddleware } from "redux";
-import { Provider } from "react-redux";
+import { Provider } from "react-redux"; 
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const initState = {
   lang: localStorage.getItem("lang") ? localStorage.getItem("lang") : "en",
   country: "egypt",
   currency: "USD",
-  token: null,
+  token: "null",
 };
 
 function reducer(state = initState, action) {

@@ -3,6 +3,17 @@ import "./components css/productSet.css";
 import { connect } from "react-redux";
 import { useState } from "react";
 
+const ProductSkeleton = () => {
+  return (
+    <div className="skeleton-products-set__product">
+      <div className="skeleton-products-set__product-img"></div>
+      <div className="skeleton-products-set__product-rate"></div>
+      <div className="skeleton-products-set__product-name"></div>
+      <div className="skeleton-products-set__product-price"></div>
+    </div>
+  );
+};
+
 const Product = ({ productName, prodcutPrice, productImage, productRate }) => {
   const defaultStars = ["star", "star", "star", "star", "star"];
   return (
@@ -57,6 +68,13 @@ const ProductsSet = ({ featuredProducts, trendingProducts, lang }) => {
           ` ${isFeatured && "selected"}`
         }
       >
+        {!featuredProducts && (
+          <>
+            <ProductSkeleton />
+            <ProductSkeleton />
+            <ProductSkeleton />
+          </>
+        )}
         {featuredProducts &&
           featuredProducts.map((product, index) => (
             <Product
@@ -74,6 +92,13 @@ const ProductsSet = ({ featuredProducts, trendingProducts, lang }) => {
           ` ${!isFeatured && "selected"}`
         }
       >
+        {!trendingProducts && (
+          <>
+            <ProductSkeleton />
+            <ProductSkeleton />
+            <ProductSkeleton />
+          </>
+        )}
         {trendingProducts &&
           trendingProducts.map((product, index) => (
             <Product

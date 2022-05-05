@@ -2,6 +2,23 @@ import { useEffect, useRef, useState } from "react";
 import "./components css/testimonial.css";
 import { connect } from "react-redux";
 
+const TestimonialSkeleton = ({ width }) => {
+  return (
+    <div className="testimonial-skeleton__figure-item" style={{ width: width }}>
+      <div className="testimonial-skeleton__item-avatar"></div>
+      <div className="testimonial-skeleton__item-name"></div>
+      <hr />
+      <div className="testimonial-skeleton__item-body">
+        <div className="testimonial-skeleton__dummy-text"></div>
+        <div className="testimonial-skeleton__dummy-text"></div>
+        <div className="testimonial-skeleton__dummy-text"></div>
+        <div className="testimonial-skeleton__dummy-text"></div>
+        <div className="testimonial-skeleton__dummy-text"></div>
+      </div>
+    </div>
+  );
+};
+
 const TestimonialItem = ({ width, name, body, image }) => {
   return (
     <div className="testimonial__figure-item" style={{ width: width }}>
@@ -16,7 +33,7 @@ const TestimonialItem = ({ width, name, body, image }) => {
 const Testimonial = ({ lang, testimonials }) => {
   const [testimonialWidth, setTestimonialWidth] = useState(null);
   let [position, setPosition] = useState(0);
-  const [items] = useState(testimonials.length - 1);
+  const [items] = useState(testimonials?.length - 1);
   const testimonialRef = useRef();
 
   useEffect(() => {
@@ -25,6 +42,7 @@ const Testimonial = ({ lang, testimonials }) => {
   }, []);
 
   const handleGoLeft = (event) => {
+    if (!items) return;
     if (position >= 0) {
       return setPosition(-items);
     }
@@ -32,6 +50,7 @@ const Testimonial = ({ lang, testimonials }) => {
   };
 
   const handleGoRight = (event) => {
+    if (!items) return;
     if (position <= -items) {
       return setPosition(0);
     }
@@ -59,15 +78,19 @@ const Testimonial = ({ lang, testimonials }) => {
           className="testimonial__figure excluded-fonts"
           style={{ transform: `translateX(${testimonialWidth * position}px)` }}
         >
-          {testimonials.map((testimonial, index) => (
-            <TestimonialItem
-              key={index}
-              name={testimonial.name}
-              image={testimonial.image}
-              body={testimonial.body}
-              width={testimonialWidth + "px"}
-            />
-          ))}
+          {!testimonials && (
+            <TestimonialSkeleton width={testimonialWidth + "px"} />
+          )}
+          {testimonials &&
+            testimonials.map((testimonial, index) => (
+              <TestimonialItem
+                key={index}
+                name={testimonial.name}
+                image={testimonial.image}
+                body={testimonial.body}
+                width={testimonialWidth + "px"}
+              />
+            ))}
         </figure>
       </div>
     </div>
