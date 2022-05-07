@@ -4,8 +4,13 @@ import NavBar from "../components/NavBar";
 import ProductsList from "../components/ProductsList";
 import Carousel from "../components/slideCarousel";
 import "./pages css/home.css";
-import "../firebase.js";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 import ProductsSet from "../components/ProductsSet";
 import Testimonial from "../components/Testimonial";
@@ -16,6 +21,8 @@ import Footer from "../components/Footer";
 const db = getFirestore();
 
 const colRef = collection(db, "website-products");
+
+const q = query(colRef, where("featured", "==", true));
 
 // const theImages = [
 //   "https://thumbs.dreamstime.com/b/product-advertisement-beauty-cosmetic-cream-mockup-pretty-pink-color-great-health-facial-care-products-196679991.jpg",
@@ -33,17 +40,17 @@ const categories = [
   {
     name: "Men's Fashion",
     arname: "ازياء رجالية",
-    path: "/mens-fashion",
+    path: "/men's",
   },
   {
     name: "Women's Fashion",
     arname: "ازياء نسائية",
-    path: "/womens-fashion",
+    path: "/women's",
   },
   {
     name: "Kids' Fashion",
     arname: "ازياء اطفال",
-    path: "/kids-fashion",
+    path: "/kids'",
   },
   {
     name: "Toys",
@@ -109,7 +116,7 @@ const HomePage = () => {
           <Carousel images={images} />
           <ProductsList
             entitle="Best Seller"
-            artitle="الأفضل مبيعاً"
+            artitle="الأكثر مبيعاً"
             prodcuts={products}
           />
           <ProductsList entitle="On Sale" artitle="للبيع" prodcuts={products} />

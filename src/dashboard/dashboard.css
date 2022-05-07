@@ -1,0 +1,28 @@
+.dashboard-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.dashboard-form__input-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-form__input-wrapper input {
+  padding: 0 2px;
+  width: 300px;
+  outline: none;
+}
+
+.dashboard-form__product-details {
+  resize: vertical;
+}

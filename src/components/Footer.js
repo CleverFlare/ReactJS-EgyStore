@@ -5,7 +5,7 @@ const Footer = () => {
     <footer>
       <p className="copy-right-bla-bla-bla excluded-fonts">
         This website was made by the ecommerce team in CIS University <br /> ©
-        All rights are reserved
+        All Rights Reserved
       </p>
     </footer>
   );

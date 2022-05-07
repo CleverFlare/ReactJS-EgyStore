@@ -1,10 +1,13 @@
-import NavBar from "./components/NavBar";
 import "./css/base.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/Home";
 import SignIn from "./pages/Singin";
 import { useEffect } from "react";
 import { connect } from "react-redux";
+import SearchPage from "./pages/Search";
+import DashBoard from "./dashboard/Dashboard";
+import CategoryPage from "./pages/Category";
+import ProductDetailsPage from "./pages/ProductDetails";
 
 function App({ lang }) {
   useEffect(() => {
@@ -21,6 +24,13 @@ function App({ lang }) {
       <div className={"App" + ` ${lang === "ar" && "arabic"}`}>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/:category" element={<CategoryPage />} />
+          <Route
+            path="/:category/:productID"
+            element={<ProductDetailsPage />}
+          />
+          <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/login" element={<SignIn />} />
         </Routes>
       </div>

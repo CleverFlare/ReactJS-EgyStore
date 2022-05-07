@@ -5,7 +5,7 @@ import Container from "./Container";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-const PhoneMenu = ({ token, lang, handleLang }) => {
+const PhoneMenu = ({ token, lang, handleLang, handleToggle }) => {
   const langWords = {
     home: lang === "en" ? "Home" : "الرئيسية",
     specialOffers: lang === "en" ? "Special Offers" : "عروض مميزة",
@@ -31,28 +31,28 @@ const PhoneMenu = ({ token, lang, handleLang }) => {
         )}
         {token && <Link to="/" id="avatar"></Link>}
         <div className="phone-nav__anchor-list">
-          <Link to="">
+          <Link to="/" onClick={handleToggle}>
             <span className="icon-home"></span>
             <p>{langWords.home}</p>
           </Link>
-          <Link to="">
+          <Link to="" onClick={handleToggle}>
             <span className="icon-crown"></span>
             <p>{langWords.specialOffers}</p>
           </Link>
-          <Link to="">
+          <Link to="" onClick={handleToggle}>
             <span className="icon-shopping-bag"></span>
             <p>{langWords.brands}</p>
           </Link>
-          <Link to="">
+          <Link to="" onClick={handleToggle}>
             <span className="icon-thumbs-up"></span>
             <p>{langWords.sell}</p>
           </Link>
-          <Link to="">
+          <Link to="" onClick={handleToggle}>
             <span className="icon-shopping-cart"></span>
             <p>{langWords.cart}</p>
           </Link>
           {!token && (
-            <Link to="">
+            <Link to="" onClick={handleToggle}>
               <span className="icon-user"></span>
               <p>{langWords.login}</p>
             </Link>
@@ -60,6 +60,17 @@ const PhoneMenu = ({ token, lang, handleLang }) => {
         </div>
       </div>
     </div>
+  );
+};
+
+const SearchBar = ({ lang }) => {
+  return (
+    <form className="phone-searchbar">
+      <input
+        type="search"
+        placeholder={lang === "en" ? "search..." : "بحث..."}
+      />
+    </form>
   );
 };
 
@@ -74,7 +85,10 @@ const PhoneNav = ({ token, lang, dispatch }) => {
     <div className="phone-nav">
       <Container>
         <div className="phone-nav__items-wrapper">
-          <img className="phone-nav__logo" src="./images/phone logo.png" />
+          <img
+            className="phone-nav__logo"
+            src="https://firebasestorage.googleapis.com/v0/b/egystore-682f9.appspot.com/o/phone%20logo.png?alt=media&token=fe508fc8-13c9-4369-b30e-20ec0b23aeb3"
+          />
           <div className="phone-nav__buttons-wrapper">
             <button className="phone-nav__vital-button">
               <span className="icon-search"></span>
@@ -109,7 +123,12 @@ const PhoneNav = ({ token, lang, dispatch }) => {
         </div>
       </Container>
       {ReactDOM.createPortal(
-        <PhoneMenu token={token} lang={lang} handleLang={handleLangChange} />,
+        <PhoneMenu
+          token={token}
+          lang={lang}
+          handleLang={handleLangChange}
+          handleToggle={handleMenuToggle}
+        />,
         document.body
       )}
     </div>

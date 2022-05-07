@@ -1,16 +1,18 @@
+import "./firebase";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createStore, applyMiddleware } from "redux";
-import { Provider } from "react-redux"; 
+import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const initState = {
   lang: localStorage.getItem("lang") ? localStorage.getItem("lang") : "en",
   country: "egypt",
   currency: "USD",
+  search: "",
   token: "null",
 };
 
@@ -19,6 +21,12 @@ function reducer(state = initState, action) {
     return {
       ...state,
       lang: action.payload,
+    };
+  }
+  if (action.type === "SEARCH_VALUE") {
+    return {
+      ...state,
+      search: action.payload,
     };
   }
   if (action.type === "CHANGE_COUNTRY") {
