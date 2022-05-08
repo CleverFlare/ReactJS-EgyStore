@@ -77,3 +77,13 @@
   background-color: #f5b841;
   cursor: pointer;
 }
+
+@media screen and (max-width: 1078px) {
+  .product-details {
+    display: flex;
+    flex-direction: column;
+  }
+  .product-details__image-wrapper {
+    max-height: 400px;
+  }
+}
