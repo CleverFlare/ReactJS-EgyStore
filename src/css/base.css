@@ -16,13 +16,17 @@ body:has(.App.arabic) .phone-nav__phone-menu {
 }
 
 #root {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   min-height: 100vh;
+  height: max-content;
   background-color: #eeeeee;
   transition: .5s;
+  overflow: hidden;
   box-shadow: 10px 0 30px rgba(0, 0, 0, 0.292);
   direction: ltr;
 }
@@ -45,6 +49,7 @@ body.arabic .top-nav {
 
 body {
   pointer-events: none;
+  height: max-content;
 }
 body * {
   pointer-events: all;

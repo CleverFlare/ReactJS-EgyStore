@@ -4,6 +4,9 @@ import "./components css/phoneNav.css";
 import Container from "./Container";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { getAuth } from "firebase/auth";
+
+const auth = getAuth();
 
 const PhoneMenu = ({ token, lang, handleLang, handleToggle }) => {
   const langWords = {
@@ -29,7 +32,11 @@ const PhoneMenu = ({ token, lang, handleLang, handleToggle }) => {
             <option value="ar">AR</option>
           </select>
         )}
-        {token && <Link to="/" id="avatar"></Link>}
+        {token && (
+          <Link to="/account" id="avatar" onClick={handleToggle}>
+            <img src={auth.currentUser && auth.currentUser.photoURL} />
+          </Link>
+        )}
         <div className="phone-nav__anchor-list">
           <Link to="/" onClick={handleToggle}>
             <span className="icon-home"></span>
@@ -52,7 +59,7 @@ const PhoneMenu = ({ token, lang, handleLang, handleToggle }) => {
             <p>{langWords.cart}</p>
           </Link>
           {!token && (
-            <Link to="" onClick={handleToggle}>
+            <Link to="/account/login" onClick={handleToggle}>
               <span className="icon-user"></span>
               <p>{langWords.login}</p>
             </Link>

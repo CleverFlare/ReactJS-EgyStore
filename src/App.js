@@ -1,15 +1,25 @@
 import "./css/base.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/Home";
-import SignIn from "./pages/Singin";
+import Sign from "./pages/Sing";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import SearchPage from "./pages/Search";
 import DashBoard from "./dashboard/Dashboard";
 import CategoryPage from "./pages/Category";
 import ProductDetailsPage from "./pages/ProductDetails";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import AccountDetails from "./pages/AccountDetails";
 
-function App({ lang }) {
+const auth = getAuth();
+
+function App({ lang, setCred }) {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setCred(user);
+    }
+  });
+
   useEffect(() => {
     localStorage.setItem("lang", lang);
     document.documentElement.lang = lang;
@@ -21,7 +31,7 @@ function App({ lang }) {
   }, [lang]);
   return (
     <Router>
-      <div className={"App" + ` ${lang === "ar" && "arabic"}`}>
+      <>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/search" element={<SearchPage />} />
@@ -31,9 +41,10 @@ function App({ lang }) {
             element={<ProductDetailsPage />}
           />
           <Route path="/dashboard" element={<DashBoard />} />
-          <Route path="/login" element={<SignIn />} />
+          <Route path="/account/:form" element={<Sign />} />
+          <Route path="/account" element={<AccountDetails />} />
         </Routes>
-      </div>
+      </>
     </Router>
   );
 }
@@ -41,7 +52,16 @@ function App({ lang }) {
 function mapStateToProps(state) {
   return {
     lang: state.lang,
+    cred: state.cred,
   };
 }
 
-export default connect(mapStateToProps)(App);
+function mapDispatchToProps(dispatch) {
+  return {
+    setCred: (value) => {
+      dispatch({ type: "SET_CRED", payload: value });
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

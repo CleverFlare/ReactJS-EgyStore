@@ -10,7 +10,6 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { Routes, Route } from "react-router-dom";
 
 const db = getFirestore();
 
@@ -59,7 +58,6 @@ const CategoryPage = () => {
   useEffect(() => {
     getDocs(colRef).then((snapshot) => {
       snapshot.docs.forEach((doc) => {
-        console.log(doc.data());
         if (doc.id === category) {
           return setData(doc.data());
         }

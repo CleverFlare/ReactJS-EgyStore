@@ -22,7 +22,6 @@ const ProductDetailsPage = () => {
   useEffect(() => {
     const docRef = doc(db, "categories", category);
     getDoc(docRef).then((res) => {
-      console.log(res.data()[productID]);
       setData(res.data()[productID]);
     });
   }, []);
@@ -49,7 +48,7 @@ const ProductDetailsPage = () => {
             </h2>
             <div className="product-details__product-details-description">
               <h2>Details:</h2>
-              <p>{data && data.details}</p>
+              <pre>{data && data.details}</pre>
             </div>
             <p className="product-details__product-price">
               ${data && data.price}

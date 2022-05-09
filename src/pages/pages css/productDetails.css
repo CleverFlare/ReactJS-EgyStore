@@ -6,8 +6,10 @@
 
 .product-details__image-wrapper {
   aspect-ratio: 1 / 1;
+  border-radius: 20px;
   background-color: white;
-  border: 1px solid gray;
+  box-shadow: 0 10px 30px #0003;
+  overflow: hidden;
 }
 
 .product-details__product-image {
@@ -43,7 +45,8 @@
   font-size: 1.4rem;
 }
 
-.product-details__product-details-description p {
+.product-details__product-details-description pre {
+  white-space: pre-wrap;
   font-size: 1.2rem;
   color: gray;
 }

@@ -7,41 +7,61 @@ import reportWebVitals from "./reportWebVitals";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { getAuth } from "firebase/auth";
+
+const auth = getAuth();
 
 const initState = {
   lang: localStorage.getItem("lang") ? localStorage.getItem("lang") : "en",
   country: "egypt",
   currency: "USD",
   search: "",
-  token: "null",
+  token: null,
+  cred: null,
 };
 
 function reducer(state = initState, action) {
-  if (action.type === "CHANGE_LANG") {
-    return {
-      ...state,
-      lang: action.payload,
-    };
+  switch (action.type) {
+    case "CHANGE_LANG":
+      return {
+        ...state,
+        lang: action.payload,
+      };
+    case "SEARCH_VALUE":
+      return {
+        ...state,
+        search: action.payload,
+      };
+    case "CHANGE_COUNTRY":
+      return {
+        ...state,
+        country: action.payload,
+      };
+    case "CHANGE_CURRENCY":
+      return {
+        ...state,
+        currency: action.payload,
+      };
+    case "SET_TOKEN":
+      return {
+        ...state,
+        token: action.payload,
+      };
+    case "SET_CRED":
+      return {
+        ...state,
+        token: action.payload.uid,
+        cred: action.payload,
+      };
+    case "SIGNOUT":
+      return {
+        ...state,
+        token: null,
+        cred: null,
+      };
+    default:
+      return state;
   }
-  if (action.type === "SEARCH_VALUE") {
-    return {
-      ...state,
-      search: action.payload,
-    };
-  }
-  if (action.type === "CHANGE_COUNTRY") {
-    return {
-      ...state,
-      country: action.payload,
-    };
-  }
-  if (action.type === "CHANGE_CURRENCY") {
-    return {
-      ...state,
-      currency: action.payload,
-    };
-  }
-  return state;
 }
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware()));

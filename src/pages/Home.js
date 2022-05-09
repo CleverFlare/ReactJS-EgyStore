@@ -17,6 +17,7 @@ import Testimonial from "../components/Testimonial";
 import Ads from "../components/Ads";
 import BrandsList from "../components/BrandsList";
 import Footer from "../components/Footer";
+import { connect } from "react-redux";
 
 const db = getFirestore();
 
@@ -97,7 +98,7 @@ const testimonials = [
   },
 ];
 
-const HomePage = () => {
+const HomePage = ({ cred, setCred }) => {
   const [images, setImages] = useState(null);
   const [products, setProducts] = useState(null);
 
@@ -134,4 +135,10 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+function mapStateToProps(state) {
+  return {
+    cred: state.cred,
+  };
+}
+
+export default connect(mapStateToProps)(HomePage);
