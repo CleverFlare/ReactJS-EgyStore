@@ -40,7 +40,7 @@ function App({ lang, setCred }) {
             path="/:category/:productID"
             element={<ProductDetailsPage />}
           />
-          <Route path="/dashboard" element={<DashBoard />} />
+          {/* <Route path="/dashboard" element={<DashBoard />} /> */}
           <Route path="/account/:form" element={<Sign />} />
           <Route path="/account" element={<AccountDetails />} />
         </Routes>
