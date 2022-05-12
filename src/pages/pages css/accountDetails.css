@@ -1,8 +1,11 @@
 .account-details {
   display: grid;
+  justify-content: center;
   align-items: center;
+  align-content: center;
   grid-template-columns: 50% 50%;
   gap: 20px;
+  height: calc(100vh - 60px);
   padding-top: 20px;
 }
 
@@ -18,10 +21,10 @@
   grid-row-end: 6;
   aspect-ratio: 1 / 1;
   max-width: 330px;
-  border-radius: 20px;
+  border-radius: 50%;
   overflow: hidden;
   cursor: pointer;
-  box-shadow: 0 10px 20px #0002;
+  box-shadow: 0 10px 20px #0004;
 }
 
 .account-details__pseudo-file-input img {
@@ -52,6 +55,7 @@
 .account-details__button-group {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
@@ -94,6 +98,7 @@
 @media screen and (max-width: 531px) {
   .account-details {
     display: flex;
+    justify-content: start;
     flex-direction: column;
   }
   .account-details__input-wrapper {

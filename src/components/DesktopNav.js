@@ -20,10 +20,10 @@ const DesktopNav = ({ token, lang, cred }) => {
           <Link to="/" className="first-button-style" id="home">
             <span className="icon-home"></span>
           </Link>
-          <Link to="" id="special-offers">
+          <Link to="/specialoffers" id="special-offers">
             {langWords.specialOffers}
           </Link>
-          <Link to="" id="brands">
+          <Link to="/brands" id="brands">
             {langWords.brands}
           </Link>
           <Link to="" id="sell-on-egystore">

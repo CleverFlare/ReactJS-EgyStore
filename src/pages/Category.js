@@ -19,11 +19,13 @@ const Product = ({ data, id }) => {
   const [srars] = useState(["star", "star", "star", "star", "star"]);
 
   return (
-    <div className="categorized-product">
+    <div
+      className={`categorized-product ${data.isSpecial && "special-product"}`}
+    >
       <Link to={id} className="categorized-product__img-wrapper">
         <img
           className="categorized-product__product-image"
-          src={data.image}
+          src={data.image[0]}
           alt="product name"
         />
       </Link>

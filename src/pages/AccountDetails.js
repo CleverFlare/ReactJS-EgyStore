@@ -203,7 +203,7 @@ const AccountDetails = ({ cred, signoutDispatch }) => {
           <div className="account-details__input-wrapper">
             <label htmlFor="">password</label>
             <input
-              type={editing ? "password" : "text"}
+              type={!editing ? "password" : "text"}
               className="account-details__password-input"
               value={password ? password : ""}
               onChange={(event) => {

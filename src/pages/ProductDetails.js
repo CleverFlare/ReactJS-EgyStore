@@ -58,8 +58,9 @@ const ProductDetailsPage = () => {
   useEffect(() => {
     const docRef = doc(db, "categories", category);
     getDoc(docRef).then((res) => {
+      console.log(res.data()[productID]);
       setData(res.data()[productID]);
-      setDisplayedPciture(res.data()[productID].image);
+      setDisplayedPciture(res.data()[productID].image[0]);
     });
   }, []);
 
@@ -81,6 +82,7 @@ const ProductDetailsPage = () => {
                   style={{ backgroundColor: blend }}
                 ></div>
               )}
+              {!data && <div className="product-details__skeleton"></div>}
               {data && (
                 <img
                   className="product-details__product-image"
@@ -89,8 +91,28 @@ const ProductDetailsPage = () => {
               )}
             </div>
             <div className="product-details__product-pictures">
+              {!data && (
+                <>
+                  <span className="product-details__product-picture">
+                    <div className="product-details__skeleton"></div>
+                  </span>
+                  <span className="product-details__product-picture">
+                    <div className="product-details__skeleton"></div>
+                  </span>
+                  <span className="product-details__product-picture">
+                    <div className="product-details__skeleton"></div>
+                  </span>
+                  <span className="product-details__product-picture">
+                    <div className="product-details__skeleton"></div>
+                  </span>
+                  <span className="product-details__product-picture">
+                    <div className="product-details__skeleton"></div>
+                  </span>
+                </>
+              )}
               {data &&
                 data.image.map((item, index) => {
+                  if (!item) return;
                   return (
                     <span
                       key={index}
@@ -114,46 +136,20 @@ const ProductDetailsPage = () => {
               category === "women's" ||
               category === "kid's") && (
               <div className="product-details__sizes">
-                <span
-                  className={`product-details__size-m ${
-                    size === "m" && "active"
-                  }`}
-                  onClick={() => setSize("m")}
-                >
-                  m
-                </span>
-                <span
-                  className={`product-details__size-l ${
-                    size === "l" && "active"
-                  }`}
-                  onClick={() => setSize("l")}
-                >
-                  l
-                </span>
-                <span
-                  className={`product-details__size-xl ${
-                    size === "xl" && "active"
-                  }`}
-                  onClick={() => setSize("xl")}
-                >
-                  xl
-                </span>
-                <span
-                  className={`product-details__size-xxl ${
-                    size === "xxl" && "active"
-                  }`}
-                  onClick={() => setSize("xxl")}
-                >
-                  xxl
-                </span>
-                <span
-                  className={`product-details__size-xxxl ${
-                    size === "xxxl" && "active"
-                  }`}
-                  onClick={() => setSize("xxxl")}
-                >
-                  xxxl
-                </span>
+                {data &&
+                  data.sizes &&
+                  data.sizes.map((item) => {
+                    return (
+                      <span
+                        className={`product-details__size-${item} ${
+                          size === item && "active"
+                        }`}
+                        onClick={() => setSize(item)}
+                      >
+                        {item}
+                      </span>
+                    );
+                  })}
               </div>
             )}
             <select
@@ -168,15 +164,16 @@ const ProductDetailsPage = () => {
                 ----
               </option>
               <option value="transparent">default</option>
-              <option value="green">green</option>
-              <option value="yellow">yellow</option>
-              <option value="gray">gray</option>
-              <option value="red">red</option>
-              <option value="blue">blue</option>
+              {data &&
+                data.colors &&
+                data.colors.map((item) => {
+                  return <option value={item}>{item}</option>;
+                })}
             </select>
             <div className="product-details__product-details-description">
               <h2>Details:</h2>
               <pre onClick={() => setShowPopup(true)}>
+                {!data && <div className="product-details__skeleton"></div>}
                 {data && data.details}
               </pre>
             </div>

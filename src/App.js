@@ -10,6 +10,8 @@ import CategoryPage from "./pages/Category";
 import ProductDetailsPage from "./pages/ProductDetails";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import AccountDetails from "./pages/AccountDetails";
+import SpecialOffers from "./pages/SpecialOffers";
+import Brands from "./pages/Brands";
 
 const auth = getAuth();
 
@@ -40,9 +42,10 @@ function App({ lang, setCred }) {
             path="/:category/:productID"
             element={<ProductDetailsPage />}
           />
-          {/* <Route path="/dashboard" element={<DashBoard />} /> */}
           <Route path="/account/:form" element={<Sign />} />
           <Route path="/account" element={<AccountDetails />} />
+          <Route path="/specialoffers" element={<SpecialOffers />} />
+          <Route path="/brands" element={<Brands />} />
         </Routes>
       </>
     </Router>

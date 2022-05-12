@@ -1,4 +1,4 @@
-.dashboard-form {
+/* .dashboard-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -25,4 +25,15 @@
 
 .dashboard-form__product-details {
   resize: vertical;
+} */
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dashboard__tabs {
+  display: flex;
+  gap: 20px;
 }

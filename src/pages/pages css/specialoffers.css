@@ -1,10 +1,10 @@
-.products-grid {
+.special-offers {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 10px;
 }
 
-.categorized-product {
+.special-offers__product-item {
   display: flex;
   flex-direction: column;
   border: 1px solid rgb(216, 216, 216);
@@ -12,7 +12,7 @@
   position: relative;
 }
 
-.categorized-product.special-product::after {
+.special-offers__product-item::after {
   content: "special offer";
   width: 200px;
   padding: 5px;
@@ -25,14 +25,14 @@
   transform: rotate(40deg);
 }
 
-.categorized-product__img-wrapper {
+.special-offers__image-wrapper {
   width: 100%;
   height: 190px;
   overflow: hidden;
   background-color: rgb(216, 216, 216);
 }
 
-.categorized-product__product-image {
+.special-offers__product-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -40,36 +40,31 @@
   mix-blend-mode: darken;
 }
 
-.categorized-product__details-wrapper {
+.special-offers__product-details {
   display: flex;
   flex-direction: column;
   padding: 10px;
 }
 
-.categorized-product__product-name {
+.special-offers__product-name {
   width: max-content;
   max-width: 100%;
   color: initial;
   text-decoration: none;
 }
 
-.categorized-product__product-price {
+.special-offers__product-price {
   width: max-content;
   color: initial;
   text-decoration: none;
 }
 
-.categorized-product__product-rate {
+.special-offers__product-rate {
   display: flex;
   list-style-type: none;
   cursor: pointer;
 }
 
-.categorized-product__product-rate .stard {
+.special-offers__product-rate .stard {
   color: #e1c828;
-}
-
-.loading {
-  color: gray;
-  font-size: 1.5rem;
 }
