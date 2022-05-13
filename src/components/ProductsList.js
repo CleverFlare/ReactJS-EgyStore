@@ -31,7 +31,7 @@ const Product = ({
         <Link to={productPath} className="product-name">
           {productName}
         </Link>
-        <p className="product-price">{productPrice}</p>
+        <p className="product-price">${productPrice}</p>
         <ul className="product-rate">
           {defaultStars.map((star, index) => {
             if (index < productRate) {

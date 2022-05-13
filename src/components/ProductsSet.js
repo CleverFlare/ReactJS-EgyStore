@@ -41,7 +41,7 @@ const Product = ({
       <Link to={productPath} className="products-set__product-name">
         {productName}
       </Link>
-      <p className="products-set__product-price">{prodcutPrice}</p>
+      <p className="products-set__product-price">${prodcutPrice}</p>
     </div>
   );
 };
