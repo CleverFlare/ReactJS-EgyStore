@@ -10,6 +10,8 @@ import {
   getDocs,
   query,
   where,
+  getDoc,
+  doc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import ProductsSet from "../components/ProductsSet";
@@ -23,14 +25,9 @@ const db = getFirestore();
 
 const colRef = collection(db, "website-products");
 
-const q = query(colRef, where("featured", "==", true));
+const categoriesRef = collection(db, "categories");
 
-// const theImages = [
-//   "https://thumbs.dreamstime.com/b/product-advertisement-beauty-cosmetic-cream-mockup-pretty-pink-color-great-health-facial-care-products-196679991.jpg",
-//   "https://image.shutterstock.com/shutterstock/photos/552433030/display_1500/stock-vector-moisturizing-cosmetic-products-ad-light-blue-bokeh-background-with-beautiful-containers-and-watery-552433030.jpg",
-//   "https://mobanko.com/wp-content/uploads/2019/06/%D8%A7%D9%81%D8%B6%D9%84-%D8%B3%D9%85%D8%A7%D8%B9%D8%A7%D8%AA-%D8%B3%D8%A7%D9%85%D8%B3%D9%88%D9%86%D8%AC-%D9%88%D9%87%D9%88%D8%A7%D9%88%D9%8A-%D8%A7%D9%84%D8%A7%D9%8A%D9%81%D9%88%D9%86.jpg",
-//   "https://i.ytimg.com/vi/dm81YmIyBGU/maxresdefault.jpg",
-// ];
+const q = query(colRef, where("featured", "==", true));
 
 const categories = [
   {
@@ -100,12 +97,71 @@ const testimonials = [
 
 const HomePage = ({ cred, setCred }) => {
   const [images, setImages] = useState(null);
-  const [products, setProducts] = useState(null);
+  const [testimonial, setTestimonial] = useState([]);
+  const [onsale, setOnsale] = useState([]);
+  const [bestseller, setBestseller] = useState([]);
+  const [featured, setFeatured] = useState([]);
+  const [trending, setTrending] = useState([]);
 
   useEffect(() => {
+    const testimonial = doc(db, "website-products", "testimonial");
     getDocs(colRef).then((snapshot) => {
       setImages(snapshot.docs[0].data().carousel);
-      setProducts(snapshot.docs[0].data()["best seller"]);
+    });
+    getDoc(testimonial).then((snapshot) => {
+      Object.keys(snapshot.data()).map((item) => {
+        const indvid = snapshot.data()[item];
+        indvid.name = item;
+        setTestimonial((oldArr) => [...oldArr, indvid]);
+      });
+    });
+    getDocs(categoriesRef).then((snapshot) => {
+      snapshot.forEach((doc) => {
+        const docID = doc.id;
+        const onsaleFilter = Object.keys(doc.data()).filter((item) => {
+          return doc.data()[item].onsale === true;
+        });
+
+        onsaleFilter.forEach((item) => {
+          const product = doc.data()[item];
+          product.category = docID;
+          product.productID = item;
+          setOnsale((oldArray) => [...oldArray, product]);
+        });
+
+        const bestsellerFilter = Object.keys(doc.data()).filter((item) => {
+          return doc.data()[item].bestseller === true;
+        });
+
+        bestsellerFilter.forEach((item) => {
+          const product = doc.data()[item];
+          product.category = docID;
+          product.productID = item;
+          setBestseller((oldArray) => [...oldArray, product]);
+        });
+
+        const featuredFilter = Object.keys(doc.data()).filter((item) => {
+          return doc.data()[item].featured === true;
+        });
+
+        featuredFilter.forEach((item) => {
+          const product = doc.data()[item];
+          product.category = docID;
+          product.productID = item;
+          setFeatured((oldArray) => [...oldArray, product]);
+        });
+
+        const trendingFilter = Object.keys(doc.data()).filter((item) => {
+          return doc.data()[item].trending === true;
+        });
+
+        trendingFilter.forEach((item) => {
+          const product = doc.data()[item];
+          product.category = docID;
+          product.productID = item;
+          setTrending((oldArray) => [...oldArray, product]);
+        });
+      });
     });
   }, []);
   return (
@@ -118,14 +174,14 @@ const HomePage = ({ cred, setCred }) => {
           <ProductsList
             entitle="Best Seller"
             artitle="الأكثر مبيعاً"
-            prodcuts={products}
+            prodcuts={bestseller}
           />
-          <ProductsList entitle="On Sale" artitle="للبيع" prodcuts={products} />
+          <ProductsList entitle="On Sale" artitle="للبيع" prodcuts={onsale} />
           <ProductsSet
-            featuredProducts={products}
-            trendingProducts={products}
+            featuredProducts={featured}
+            trendingProducts={trending}
           />
-          <Testimonial testimonials={testimonials} />
+          <Testimonial testimonials={testimonial} />
           <Ads />
           <BrandsList />
         </div>

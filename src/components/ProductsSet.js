@@ -14,11 +14,17 @@ const ProductSkeleton = () => {
   );
 };
 
-const Product = ({ productName, prodcutPrice, productImage, productRate }) => {
+const Product = ({
+  productName,
+  prodcutPrice,
+  productImage,
+  productRate,
+  productPath,
+}) => {
   const defaultStars = ["star", "star", "star", "star", "star"];
   return (
     <div className="products-set__product">
-      <img src={productImage} alt="" className="products-set__product-img" />
+      <img src={productImage[0]} alt="" className="products-set__product-img" />
       <div className="products-set__product-rate">
         {defaultStars.map((star, index) => {
           if (index < productRate) {
@@ -32,7 +38,7 @@ const Product = ({ productName, prodcutPrice, productImage, productRate }) => {
           }
         })}
       </div>
-      <Link to="" className="products-set__product-name">
+      <Link to={productPath} className="products-set__product-name">
         {productName}
       </Link>
       <p className="products-set__product-price">{prodcutPrice}</p>
@@ -41,23 +47,29 @@ const Product = ({ productName, prodcutPrice, productImage, productRate }) => {
 };
 
 const ProductsSet = ({ featuredProducts, trendingProducts, lang }) => {
-  const [isFeatured, setIsFeatured] = useState(true);
+  const [currentTab, setCurrentTab] = useState("featured");
 
-  const handleToggle = () => {
-    setIsFeatured(!isFeatured);
+  const handleToggle = (value) => {
+    setCurrentTab(value);
   };
   return (
     <div className="products-set">
       <div className="products-set__header">
         <button
-          className={"products-set__heading" + ` ${isFeatured && "selected"}`}
-          onClick={handleToggle}
+          className={
+            "products-set__heading" +
+            ` ${currentTab === "featured" && "selected"}`
+          }
+          onClick={() => handleToggle("featured")}
         >
           {lang === "en" ? "Featured" : "مميزة"}
         </button>
         <button
-          className={"products-set__heading" + ` ${!isFeatured && "selected"}`}
-          onClick={handleToggle}
+          className={
+            "products-set__heading" +
+            ` ${currentTab === "trending" && "selected"}`
+          }
+          onClick={() => handleToggle("trending")}
         >
           {lang === "en" ? "Trending" : "الأكثر رواجاً"}
         </button>
@@ -65,17 +77,17 @@ const ProductsSet = ({ featuredProducts, trendingProducts, lang }) => {
       <div
         className={
           "products-set__trending-set excluded-fonts" +
-          ` ${isFeatured && "selected"}`
+          ` ${currentTab === "featured" && "selected"}`
         }
       >
-        {!featuredProducts && (
+        {featuredProducts <= 0 && (
           <>
             <ProductSkeleton />
             <ProductSkeleton />
             <ProductSkeleton />
           </>
         )}
-        {featuredProducts &&
+        {featuredProducts.length > 0 &&
           featuredProducts.map((product, index) => (
             <Product
               key={index}
@@ -83,23 +95,24 @@ const ProductsSet = ({ featuredProducts, trendingProducts, lang }) => {
               prodcutPrice={product.price}
               productImage={product.image}
               productRate={product.rate}
+              productPath={`/${product.category}/${product.productID}`}
             />
           ))}
       </div>
       <div
         className={
           "products-set__trending-set excluded-fonts" +
-          ` ${!isFeatured && "selected"}`
+          ` ${currentTab === "trending" && "selected"}`
         }
       >
-        {!trendingProducts && (
+        {trendingProducts.length <= 0 && (
           <>
             <ProductSkeleton />
             <ProductSkeleton />
             <ProductSkeleton />
           </>
         )}
-        {trendingProducts &&
+        {trendingProducts.length > 0 &&
           trendingProducts.map((product, index) => (
             <Product
               key={index}
@@ -107,6 +120,7 @@ const ProductsSet = ({ featuredProducts, trendingProducts, lang }) => {
               prodcutPrice={product.price}
               productImage={product.image}
               productRate={product.rate}
+              productPath={`/${product.category}/${product.productID}`}
             />
           ))}
       </div>

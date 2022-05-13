@@ -15,14 +15,20 @@ const SkeletonProduct = () => {
   );
 };
 
-const Product = ({ productName, productPrice, productRate, productImg }) => {
+const Product = ({
+  productName,
+  productPrice,
+  productRate,
+  productImg,
+  productPath,
+}) => {
   const defaultStars = ["star", "star", "star", "star", "star"];
 
   return (
     <div className="product-list__item excluded-fonts">
-      <img src={productImg} className="product-list__item__image" />
+      <img src={productImg[0]} className="product-list__item__image" />
       <div className="product-list__item__details">
-        <Link to="" className="product-name">
+        <Link to={productPath} className="product-name">
           {productName}
         </Link>
         <p className="product-price">{productPrice}</p>
@@ -51,14 +57,14 @@ const ProductsList = ({ lang, entitle, artitle, prodcuts }) => {
         {lang === "en" ? entitle : artitle}
       </h2>
       <div className="products-list__list">
-        {!prodcuts && (
+        {prodcuts.length <= 0 && (
           <>
             <SkeletonProduct />
             <SkeletonProduct />
             <SkeletonProduct />
           </>
         )}
-        {prodcuts &&
+        {prodcuts.length > 0 &&
           prodcuts.map((product, index) => (
             <Product
               key={index}
@@ -66,6 +72,7 @@ const ProductsList = ({ lang, entitle, artitle, prodcuts }) => {
               productPrice={product.price}
               productRate={product.rate}
               productImg={product.image}
+              productPath={`/${product.category}/${product.productID}`}
             />
           ))}
       </div>

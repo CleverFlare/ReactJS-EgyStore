@@ -1,11 +1,7 @@
 .account-details {
   display: grid;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
   grid-template-columns: 50% 50%;
   gap: 20px;
-  height: calc(100vh - 60px);
   padding-top: 20px;
 }
 

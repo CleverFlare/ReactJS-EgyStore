@@ -33,13 +33,16 @@ const TestimonialItem = ({ width, name, body, image }) => {
 const Testimonial = ({ lang, testimonials }) => {
   const [testimonialWidth, setTestimonialWidth] = useState(null);
   let [position, setPosition] = useState(0);
-  const [items] = useState(testimonials?.length - 1);
+  const [items, setItems] = useState(null);
   const testimonialRef = useRef();
 
   useEffect(() => {
+    if (testimonials.length > 0) {
+      setItems(testimonials.length - 1);
+    }
     const width = testimonialRef.current.getBoundingClientRect().width;
     setTestimonialWidth(width);
-  }, []);
+  }, [testimonials.length]);
 
   const handleGoLeft = (event) => {
     if (!items) return;
@@ -78,16 +81,16 @@ const Testimonial = ({ lang, testimonials }) => {
           className="testimonial__figure excluded-fonts"
           style={{ transform: `translateX(${testimonialWidth * position}px)` }}
         >
-          {!testimonials && (
+          {testimonials.length <= 0 && (
             <TestimonialSkeleton width={testimonialWidth + "px"} />
           )}
-          {testimonials &&
+          {testimonials.length > 0 &&
             testimonials.map((testimonial, index) => (
               <TestimonialItem
                 key={index}
                 name={testimonial.name}
-                image={testimonial.image}
-                body={testimonial.body}
+                image={testimonial.picture}
+                body={testimonial.opinion}
                 width={testimonialWidth + "px"}
               />
             ))}

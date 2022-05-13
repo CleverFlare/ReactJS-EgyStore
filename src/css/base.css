@@ -2,17 +2,27 @@
 @import url('icons.css');
 @import url('https://fonts.googleapis.com/css2?family=Jomhuria&family=Kanit:wght@200&family=Rakkas&display=swap');
 /* @import url('http://fonts.cdnfonts.com/css/neo-sans-arabic'); */
+
 * {
   padding: 0;
   margin: 0;
   font-size: 1.1rem;
 }
 
-body {
-  font-family: 'Teko', sans-serif;
+@font-face {
+  font-family: Teko;
+  src: url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Righteous&family=Teko&display=swap');
+  unicode-range: U+0000, U+007F;
 }
-body:has(.App.arabic) .phone-nav__phone-menu {
-  font-family: 'Rakkas', cursive;
+
+@font-face {
+  font-family: Rakkas;
+  src: url('https://fonts.googleapis.com/css2?family=Jomhuria&family=Kanit:wght@200&family=Rakkas&display=swap');
+  unicode-range: U+0600, U+06FF;
+}
+
+* {
+  font-family: Teko, Rakkas;
 }
 
 #root {
@@ -31,22 +41,6 @@ body:has(.App.arabic) .phone-nav__phone-menu {
   direction: ltr;
 }
 
-body * {
-  font-family: 'Teko', sans-serif;
-}
-body.arabic .excluded-fonts {
-  font-family: 'Teko', sans-serif;
-}
-body.arabic .excluded-fonts * {
-  font-family: 'Teko', sans-serif;
-}
-body.arabic * {
-  font-family: 'Rakkas', cursive;
-}
-body.arabic .top-nav {
-  font-family: 'Teko', sans-serif;
-}
-
 body {
   pointer-events: none;
   height: max-content;
@@ -57,10 +51,6 @@ body * {
 
 a {
   color: rgb(0, 123, 185);
-}
-
-.test {
-  height: 150vh;
 }
 
 .first-button-style {
