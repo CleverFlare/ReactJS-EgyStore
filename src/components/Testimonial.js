@@ -22,7 +22,9 @@ const TestimonialSkeleton = ({ width }) => {
 const TestimonialItem = ({ width, name, body, image }) => {
   return (
     <div className="testimonial__figure-item" style={{ width: width }}>
-      <img className="testimonial__item-avatar" src={image} />
+      <div className="testimonial__image-wrapper">
+        <img className="testimonial__item-avatar" src={image} />
+      </div>
       <p className="testimonial__item-name">{name}</p>
       <hr />
       <p className="testimonial__item-body">{body}</p>
