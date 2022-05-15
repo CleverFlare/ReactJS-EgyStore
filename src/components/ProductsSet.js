@@ -20,6 +20,7 @@ const Product = ({
   productImage,
   productRate,
   productPath,
+  currency,
 }) => {
   const defaultStars = ["star", "star", "star", "star", "star"];
   return (
@@ -41,12 +42,19 @@ const Product = ({
       <Link to={productPath} className="products-set__product-name">
         {productName}
       </Link>
-      <p className="products-set__product-price">${prodcutPrice}</p>
+      <p className="products-set__product-price">
+        ${(prodcutPrice * currency.convertor).toFixed(2)}
+      </p>
     </div>
   );
 };
 
-const ProductsSet = ({ featuredProducts, trendingProducts, lang }) => {
+const ProductsSet = ({
+  featuredProducts,
+  trendingProducts,
+  lang,
+  currency,
+}) => {
   const [currentTab, setCurrentTab] = useState("featured");
 
   const handleToggle = (value) => {
@@ -96,6 +104,7 @@ const ProductsSet = ({ featuredProducts, trendingProducts, lang }) => {
               productImage={product.image}
               productRate={product.rate}
               productPath={`/${product.category}/${product.productID}`}
+              currency={currency}
             />
           ))}
       </div>
@@ -121,6 +130,7 @@ const ProductsSet = ({ featuredProducts, trendingProducts, lang }) => {
               productImage={product.image}
               productRate={product.rate}
               productPath={`/${product.category}/${product.productID}`}
+              currency={currency}
             />
           ))}
       </div>
@@ -131,6 +141,7 @@ const ProductsSet = ({ featuredProducts, trendingProducts, lang }) => {
 function mapStateToProps(state) {
   return {
     lang: state.lang,
+    currency: state.currency,
   };
 }
 

@@ -21,6 +21,7 @@ const Product = ({
   productRate,
   productImg,
   productPath,
+  currency,
 }) => {
   const defaultStars = ["star", "star", "star", "star", "star"];
 
@@ -31,7 +32,9 @@ const Product = ({
         <Link to={productPath} className="product-name">
           {productName}
         </Link>
-        <p className="product-price">${productPrice}</p>
+        <p className="product-price">
+          ${(productPrice * currency.convertor).toFixed(2)}
+        </p>
         <ul className="product-rate">
           {defaultStars.map((star, index) => {
             if (index < productRate) {
@@ -50,7 +53,7 @@ const Product = ({
   );
 };
 
-const ProductsList = ({ lang, entitle, artitle, prodcuts }) => {
+const ProductsList = ({ lang, entitle, artitle, prodcuts, currency }) => {
   return (
     <div className="products-list">
       <h2 className="products-list__heading">
@@ -72,6 +75,7 @@ const ProductsList = ({ lang, entitle, artitle, prodcuts }) => {
               productPrice={product.price}
               productRate={product.rate}
               productImg={product.image}
+              currency={currency}
               productPath={`/${product.category}/${product.productID}`}
             />
           ))}
@@ -83,6 +87,7 @@ const ProductsList = ({ lang, entitle, artitle, prodcuts }) => {
 function mapStateToProps(state) {
   return {
     lang: state.lang,
+    currency: state.currency,
   };
 }
 

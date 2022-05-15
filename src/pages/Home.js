@@ -77,24 +77,6 @@ const categories = [
   },
 ];
 
-const testimonials = [
-  {
-    name: "Kristen",
-    body: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores voluptas labore inventore ex provident numquam magnam accusantium tempora repellat, laudantium voluptatem blanditiis soluta neque. Nisi mollitia amet quam ad natus?",
-    image: "images/woman avatar.jpg",
-  },
-  {
-    name: "Kotlin",
-    body: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores voluptas labore inventore ex provident numquam magnam accusantium tempora repellat, laudantium voluptatem blanditiis soluta neque. Nisi mollitia amet quam ad natus?",
-    image: "images/woman avatar.jpg",
-  },
-  {
-    name: "Sandy",
-    body: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores voluptas labore inventore ex provident numquam magnam accusantium tempora repellat, laudantium voluptatem blanditiis soluta neque. Nisi mollitia amet quam ad natus?",
-    image: "images/woman avatar.jpg",
-  },
-];
-
 const HomePage = ({ cred, setCred }) => {
   const [images, setImages] = useState(null);
   const [testimonial, setTestimonial] = useState([]);

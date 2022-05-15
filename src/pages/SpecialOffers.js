@@ -15,7 +15,14 @@ const db = getFirestore();
 
 const colRef = collection(db, "categories");
 
-const SpecialOffersProduct = ({ name, path, picture }) => {
+const SpecialOffersProduct = ({ name, price, path, picture, stars }) => {
+  const [starsTemplate, setStarsTemplate] = useState([
+    "star",
+    "star",
+    "star",
+    "star",
+    "star",
+  ]);
   return (
     <div className="special-offers__product-item">
       <Link to={path} className="special-offers__image-wrapper">
@@ -25,13 +32,15 @@ const SpecialOffersProduct = ({ name, path, picture }) => {
         <Link to={path} className="special-offers__product-name">
           {name}
         </Link>
-        <p className="special-offers__product-price">$00.00</p>
+        <p className="special-offers__product-price">${price}</p>
         <ul className="special-offers__product-rate">
-          <li className="stard">★</li>
-          <li className="stard">★</li>
-          <li className="stard">★</li>
-          <li>★</li>
-          <li>★</li>
+          {starsTemplate.map((star, index) => {
+            if (index < stars) {
+              return <li className="stard">★</li>;
+            } else {
+              return <li>★</li>;
+            }
+          })}
         </ul>
       </div>
     </div>
@@ -70,6 +79,8 @@ const SpecialOffers = () => {
                   key={index}
                   name={specialProduct.name}
                   picture={specialProduct.image[0]}
+                  stars={specialProduct.rate}
+                  price={specialProduct.price}
                   path={`/${specialProduct.category}/${specialProduct.productID}`}
                 />
               );

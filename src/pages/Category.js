@@ -3,6 +3,7 @@ import NavBar from "../components/NavBar";
 import "./pages css/category.css";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import {
   getFirestore,
   collection,
@@ -15,7 +16,7 @@ const db = getFirestore();
 
 const colRef = collection(db, "categories");
 
-const Product = ({ data, id }) => {
+const Product = ({ data, id, currency }) => {
   const [srars] = useState(["star", "star", "star", "star", "star"]);
 
   return (
@@ -34,7 +35,7 @@ const Product = ({ data, id }) => {
           {data.name}
         </Link>
         <Link to={id} className="categorized-product__product-price">
-          ${data.price}
+          ${(data.price * currency.convertor).toFixed(2)}
         </Link>
         <ul className="categorized-product__product-rate">
           {srars.map((star, index) => {
@@ -53,7 +54,7 @@ const Product = ({ data, id }) => {
   );
 };
 
-const CategoryPage = () => {
+const CategoryPage = ({ currency }) => {
   const [data, setData] = useState(null);
   const { category } = useParams();
 
@@ -75,7 +76,14 @@ const CategoryPage = () => {
           {!data && <p className="loading">Loading...</p>}
           {data &&
             Object.keys(data).map((item, index) => {
-              return <Product key={index} data={data[item]} id={item} />;
+              return (
+                <Product
+                  key={index}
+                  data={data[item]}
+                  id={item}
+                  currency={currency}
+                />
+              );
             })}
         </div>
       </Container>
@@ -83,4 +91,10 @@ const CategoryPage = () => {
   );
 };
 
-export default CategoryPage;
+function mapStateToProps(state) {
+  return {
+    currency: state.currency,
+  };
+}
+
+export default connect(mapStateToProps)(CategoryPage);

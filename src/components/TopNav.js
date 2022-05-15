@@ -1,9 +1,36 @@
 import "./components css/topNav.css";
 import { connect } from "react-redux";
 
-const TopNav = ({ lang, token, dispatch }) => {
+const TopNav = ({ lang, token, dispatchLang, dispatchCurrency, currency }) => {
   const handleLang = (event) => {
-    dispatch(event.target.value);
+    dispatchLang(event.target.value);
+  };
+  const handleCurrency = (event) => {
+    let convertorValue = 1;
+    switch (event.target.value) {
+      case "USD":
+        convertorValue = 1;
+        break;
+      case "EGP":
+        convertorValue = 18.31;
+        break;
+      case "AED":
+        convertorValue = 3.67;
+        break;
+      case "SAR":
+        convertorValue = 3.75;
+        break;
+      default:
+        convertorValue = 1;
+    }
+    dispatchCurrency({ name: event.target.value, convertor: convertorValue });
+    localStorage.setItem(
+      "currency",
+      JSON.stringify({
+        name: event.target.value,
+        convertor: convertorValue,
+      })
+    );
   };
   return (
     <div className="top-nav excluded-fonts">
@@ -27,7 +54,11 @@ const TopNav = ({ lang, token, dispatch }) => {
             <label>
               <span className="icon-currency"></span>
             </label>
-            <select id="pick-currency">
+            <select
+              id="pick-currency"
+              value={currency.name}
+              onChange={handleCurrency}
+            >
               <option value="USD">USD</option>
               <option value="EGP">EGP</option>
               <option value="AED">AED</option>
@@ -66,13 +97,17 @@ function mapStateToProps(state) {
   return {
     token: state.token,
     lang: state.lang,
+    currency: state.currency,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch: (value) => {
+    dispatchLang: (value) => {
       dispatch({ type: "CHANGE_LANG", payload: value });
+    },
+    dispatchCurrency: (value) => {
+      dispatch({ type: "CHANGE_CURRENCY", payload: value });
     },
   };
 }

@@ -14,7 +14,9 @@ const auth = getAuth();
 const initState = {
   lang: localStorage.getItem("lang") ? localStorage.getItem("lang") : "en",
   country: "egypt",
-  currency: "USD",
+  currency: localStorage.getItem("currency")
+    ? JSON.parse(localStorage.getItem("currency"))
+    : { name: "USD", convertor: 1 }, 
   search: "",
   token: null,
   cred: null,

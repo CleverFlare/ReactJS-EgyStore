@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { connect } from "react-redux";
 
 const db = getFirestore();
 
@@ -38,7 +39,7 @@ const DetailsPop = ({ details, isActive, setIsActive }) => {
   );
 };
 
-const ProductDetailsPage = () => {
+const ProductDetailsPage = ({ currency }) => {
   const { category, productID } = useParams();
   const [data, setData] = useState(null);
   const [stars] = useState(["star", "star", "star", "star", "star"]);
@@ -178,7 +179,7 @@ const ProductDetailsPage = () => {
               </pre>
             </div>
             <p className="product-details__product-price">
-              ${data && data.price}
+              ${data && (data.price * currency.convertor).toFixed(2)}
             </p>
             <ul className="product-details__product-rate">
               {data &&
@@ -204,4 +205,10 @@ const ProductDetailsPage = () => {
   );
 };
 
-export default ProductDetailsPage;
+function mapStateToProps(state) {
+  return {
+    currency: state.currency,
+  };
+}
+
+export default connect(mapStateToProps)(ProductDetailsPage);
