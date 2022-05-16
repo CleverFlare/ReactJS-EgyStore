@@ -36,9 +36,13 @@ const SpecialOffersProduct = ({ name, price, path, picture, stars }) => {
         <ul className="special-offers__product-rate">
           {starsTemplate.map((star, index) => {
             if (index < stars) {
-              return <li className="stard">★</li>;
+              return (
+                <li key={index} className="stard">
+                  ★
+                </li>
+              );
             } else {
-              return <li>★</li>;
+              return <li key={index}>★</li>;
             }
           })}
         </ul>

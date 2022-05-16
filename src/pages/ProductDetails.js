@@ -8,6 +8,8 @@ import {
   query,
   where,
   getDocs,
+  updateDoc,
+  onSnapshot,
 } from "firebase/firestore";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -92,26 +94,67 @@ function randomize(min, max) {
   return Math.floor(Math.random() * max - min);
 }
 
-const ProductDetailsPage = ({ currency }) => {
+const ProductDetailsPage = ({ currency, token }) => {
   const { category, productID } = useParams();
   const [data, setData] = useState(null);
   const [stars] = useState(["star", "star", "star", "star", "star"]);
+  const [selectedColor, setSelectedColor] = useState("default");
   const [size, setSize] = useState("m");
+  const [allowSize, setAllowSize] = useState(false);
   const [blend, setBlend] = useState("transparent");
   const [showPopup, setShowPopup] = useState(false);
   const [displayedPicture, setDisplayedPciture] = useState();
   const [othersArray, setOthersArray] = useState([]);
+  const [isCarted, setIsCarted] = useState(false);
 
   const handlePicturesToggle = (event) => {
     setDisplayedPciture(event.target.src);
   };
 
-  const handleBlend = (event) => {
+  const handleColors = (event) => {
     setBlend(event.target.value);
+    setSelectedColor(event.target.value);
+  };
+
+  const handleAddToCart = () => {
+    const docRef = doc(db, "users", `${token}`);
+    getDoc(docRef).then((res) => {
+      const user = res.data();
+      user.cart = {
+        ...user.cart,
+        [productID]: {
+          image: displayedPicture,
+          name: data.name,
+          price: data.price,
+          color: selectedColor,
+          size:
+            category === "men's" ||
+            category === "women's" ||
+            category === "kid's"
+              ? size
+              : null,
+          path: `/${category}/${productID}`,
+        },
+      };
+      updateDoc(docRef, user);
+    });
   };
 
   useEffect(() => {
     const docRef = doc(db, "categories", category);
+    const userRef = doc(db, "users", `${token}`);
+
+    if (token) {
+      onSnapshot(userRef, (res) => {
+        if (
+          res.data().cart &&
+          Object.keys(res.data().cart).includes(productID)
+        ) {
+          setIsCarted(true);
+        }
+      });
+    }
+
     getDoc(docRef).then((res) => {
       setData(res.data()[productID]);
       setDisplayedPciture(res.data()[productID].image[0]);
@@ -130,7 +173,7 @@ const ProductDetailsPage = ({ currency }) => {
       product4.id = product4ID;
       setOthersArray([product1, product2, product3, product4]);
     });
-  }, [productID]);
+  }, [productID, token]);
 
   return (
     <>
@@ -224,7 +267,7 @@ const ProductDetailsPage = ({ currency }) => {
             <select
               className="product-details__colors"
               defaultValue={"select color"}
-              onChange={handleBlend}
+              onChange={handleColors}
             >
               <option value="select color" disabled>
                 select color
@@ -266,10 +309,20 @@ const ProductDetailsPage = ({ currency }) => {
                   return <li key={index}>★</li>;
                 })}
             </ul>
-            <button className="product-details__cart-add">
-              <span className="icon-shopping-cart"></span>
-              Add to cart
-            </button>
+            {token && !isCarted ? (
+              <button
+                className="product-details__cart-add"
+                onClick={handleAddToCart}
+              >
+                <span className="icon-shopping-cart"></span>
+                Add to cart
+              </button>
+            ) : (
+              <button className="product-details__carted">
+                <span className="icon-shopping-cart"></span>
+                Carted
+              </button>
+            )}
           </div>
           <div className="product-details__other-products">
             <h2 className="product-details__others-title">From category</h2>
@@ -296,6 +349,7 @@ const ProductDetailsPage = ({ currency }) => {
 
 function mapStateToProps(state) {
   return {
+    token: state.token,
     currency: state.currency,
   };
 }

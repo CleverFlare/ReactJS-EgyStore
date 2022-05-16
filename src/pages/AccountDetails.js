@@ -10,6 +10,8 @@ import {
   getDoc,
   updateDoc,
   deleteDoc,
+  onSnapshot,
+  deleteField,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import {
@@ -34,24 +36,101 @@ const auth = getAuth();
 
 const db = getFirestore();
 
-const AccountDetails = ({ cred, signoutDispatch }) => {
+const CartItem = ({
+  id,
+  user,
+  name,
+  path,
+  picture,
+  price,
+  color,
+  size,
+  currency,
+}) => {
+  const [amount, setAmount] = useState(1);
+
+  const handleIncreaseAmount = () => {
+    if (amount < 1) return;
+    setAmount(amount + 1);
+  };
+
+  const handleDecreaseAmount = () => {
+    if (amount === 1) return;
+    setAmount(amount - 1);
+  };
+
+  const handleRemoveItem = () => {
+    const userRef = doc(db, "users", `${user}`);
+    onSnapshot(userRef, (res) => {
+      const user = res.data();
+      delete user.cart[id];
+      updateDoc(userRef, user);
+    });
+  };
+
+  return (
+    <div className="cart__item">
+      <div className="cart__image-wrapper">
+        <img className="cart__image" src={picture} />
+      </div>
+      <div className="cart__item-details">
+        <Link to={path} className="cart__item-name">
+          {name}
+        </Link>
+        {size && <p className="cart__item-size">size: {size}</p>}
+      </div>
+      <p className="cart__item-color">{color}</p>
+      <div className="cart__amount-wrapper">
+        <p className="cart__amount">{amount}</p>
+        <div className="cart__amount-buttons">
+          <button
+            className="cart__amount-increase"
+            onClick={handleIncreaseAmount}
+          >
+            +
+          </button>
+          <button
+            className="cart__amount-decrease"
+            onClick={handleDecreaseAmount}
+          >
+            -
+          </button>
+        </div>
+      </div>
+      <p className="cart__item-price">
+        {(price * currency.convertor).toFixed(2)} {currency.name}
+      </p>
+      <button className="cart__remove-button" onClick={handleRemoveItem}>
+        ✖
+      </button>
+    </div>
+  );
+};
+
+const AccountDetails = ({ cred, signoutDispatch, currency }) => {
   const [userData, setUserData] = useState(null);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [editing, setEditing] = useState(false);
   const [pfp, setPfp] = useState(null);
+  const [cart, setCart] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!cred) return;
     const docRef = doc(db, "users", cred.uid);
-    getDoc(docRef).then((snapshot) => {
+    onSnapshot(docRef, (snapshot) => {
       setUsername(snapshot.data().username);
       setPassword(snapshot.data().password);
       setEmail(snapshot.data().email);
       setPfp(snapshot.data().photo);
       setUserData(snapshot.data());
+      if (Object.keys(snapshot.data().cart).length !== 0) {
+        setCart(snapshot.data().cart);
+      } else {
+        setCart(null);
+      }
     });
   }, [cred]);
 
@@ -251,6 +330,28 @@ const AccountDetails = ({ cred, signoutDispatch }) => {
             </div>
           )}
         </div>
+        <div className="cart">
+          <h2>Your cart</h2>
+          {cart &&
+            Object.keys(cart).map((item) => {
+              const product = cart[item];
+              return (
+                <CartItem
+                  key={item}
+                  id={item}
+                  name={product.name}
+                  picture={product.image}
+                  currency={currency}
+                  color={product.color}
+                  price={product.price}
+                  path={product.path}
+                  size={product.size}
+                  user={cred.uid}
+                />
+              );
+            })}
+          {!cart && <p>No Products</p>}
+        </div>
       </Container>
     </>
   );
@@ -259,6 +360,7 @@ const AccountDetails = ({ cred, signoutDispatch }) => {
 function mapStateToProps(state) {
   return {
     cred: state.cred,
+    currency: state.currency,
   };
 }
 
