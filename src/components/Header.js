@@ -2,9 +2,12 @@ import "./components css/header.css";
 import Container from "./Container";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Header = ({ lang, search, searchDispatch }) => {
   const navigate = useNavigate();
+
+  const [searchValue, setSearchValue] = useState("");
 
   const langWords = {
     search: lang === "en" ? "Search..." : "بحث...",
@@ -12,13 +15,16 @@ const Header = ({ lang, search, searchDispatch }) => {
     cart: lang === "en" ? "Your Cart" : "عربة تسوقك",
   };
 
-  const handleSearch = (event) => {
+  const handleSearch = async (event) => {
     event.preventDefault();
-    navigate("/search");
+    if (!searchValue) return;
+    await searchDispatch(searchValue);
+
+    await navigate("/search");
   };
 
   const handleSearchValue = (event) => {
-    searchDispatch(event.target.value);
+    setSearchValue(event.target.value);
   };
 
   return (
@@ -33,7 +39,7 @@ const Header = ({ lang, search, searchDispatch }) => {
           <input
             type="search"
             placeholder={langWords.search}
-            value={search}
+            value={searchValue}
             onChange={handleSearchValue}
             autoComplete="off"
             className="excluded-fonts"

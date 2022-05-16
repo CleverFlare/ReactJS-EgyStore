@@ -16,7 +16,7 @@ const initState = {
   country: "egypt",
   currency: localStorage.getItem("currency")
     ? JSON.parse(localStorage.getItem("currency"))
-    : { name: "USD", convertor: 1 }, 
+    : { name: "USD", convertor: 1 },
   search: "",
   token: null,
   cred: null,

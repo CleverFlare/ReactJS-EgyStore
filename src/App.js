@@ -5,7 +5,6 @@ import Sign from "./pages/Sing";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import SearchPage from "./pages/Search";
-import DashBoard from "./dashboard/Dashboard";
 import CategoryPage from "./pages/Category";
 import ProductDetailsPage from "./pages/ProductDetails";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
