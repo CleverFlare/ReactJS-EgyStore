@@ -214,16 +214,32 @@
   .cart__item {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+      "product-picture product-picture product-picture product-details product-details" 
+      "product-color product-amount product-price product-price product-Xbutton";
   }
   .cart__image-wrapper {
     grid-column: 1 / 5;
+    grid-area: product-picture;
     width: 100%;
+  }
+  .cart__item-details {
+    width: 100%;
+    grid-area: product-details;
+  }
+  .cart__item-color {
+    grid-area: product-color;
+  }
+  .cart__amount-wrapper {
+    grid-area: product-amount;
   }
   .cart__item-price {
     direction: rtl;
     grid-column: 3 / 5;
+    grid-area: product-price;
   }
   .cart__remove-button {
     margin-left: auto;
+    grid-area: product-Xbutton;
   }
 }
