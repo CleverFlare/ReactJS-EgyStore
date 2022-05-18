@@ -1,7 +1,7 @@
 import Container from "../components/Container";
 import NavBar from "../components/NavBar";
 import "./pages css/category.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
@@ -60,19 +60,25 @@ const CategoryPage = ({ currency }) => {
   const [totalPages, setTotalPages] = useState(2);
   const [data, setData] = useState(null);
   const { category } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getDocs(colRef).then((snapshot) => {
-      // console.log(snapshot.docs.length / 10);
-      snapshot.docs.forEach((doc) => {
-        if (doc.id === category) {
-          const limit = Math.ceil(Object.keys(doc.data()).length / 10);
-          setTotalPages(limit);
-          return setData(doc.data());
-        }
-        return;
+    getDocs(colRef)
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          if (doc.id === category) {
+            const limit = Math.ceil(Object.keys(doc.data()).length / 10);
+            setTotalPages(limit);
+            return setData(doc.data());
+          } else {
+            throw Error("not found");
+          }
+          return;
+        });
+      })
+      .catch((err) => {
+        navigate("/notfound");
       });
-    });
   }, []);
   return (
     <>

@@ -120,9 +120,6 @@ const AccountDetails = ({ cred, signoutDispatch, currency, lang }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!cred) {
-      return navigate("/account/login");
-    }
     const docRef = doc(db, "users", cred.uid);
     onSnapshot(docRef, (snapshot) => {
       setUsername(snapshot.data().username);

@@ -11,6 +11,7 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import AccountDetails from "./pages/AccountDetails";
 import SpecialOffers from "./pages/SpecialOffers";
 import Brands from "./pages/Brands";
+import NotFound from "./pages/NotFound";
 
 const auth = getAuth();
 
@@ -34,6 +35,7 @@ function App({ lang, setCred }) {
     <Router>
       <>
         <Routes>
+          <Route path="/notfound" element={<NotFound />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/:category" element={<CategoryPage />} />
@@ -42,7 +44,9 @@ function App({ lang, setCred }) {
             element={<ProductDetailsPage />}
           />
           <Route path="/account/:form" element={<Sign />} />
-          <Route path="/account" element={<AccountDetails />} />
+          {auth.currentUser && (
+            <Route path="/account" element={<AccountDetails />} />
+          )}
           <Route path="/specialoffers" element={<SpecialOffers />} />
           <Route path="/brands" element={<Brands />} />
         </Routes>
