@@ -37,7 +37,10 @@
   width: max-content;
   max-width: 100%;
   color: initial;
+  white-space: nowrap;
   text-decoration: none;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .brands__product-price {

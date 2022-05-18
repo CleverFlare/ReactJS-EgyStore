@@ -94,7 +94,7 @@ function randomize(min, max) {
   return Math.floor(Math.random() * max - min);
 }
 
-const ProductDetailsPage = ({ currency, token }) => {
+const ProductDetailsPage = ({ currency, token, lang }) => {
   const { category, productID } = useParams();
   const [data, setData] = useState(null);
   const [stars] = useState(["star", "star", "star", "star", "star"]);
@@ -238,7 +238,7 @@ const ProductDetailsPage = ({ currency, token }) => {
           </div>
           <div className="product-details__details-wrapper">
             <Link className="product-details__go-back" to={`/${category}`}>
-              &#60; Go Back
+              &#60; {lang === "en" ? "Go Back" : "العودة للخلف"}
             </Link>
             <h2 className="product-details__product-name">
               {data && data.name}
@@ -287,7 +287,7 @@ const ProductDetailsPage = ({ currency, token }) => {
                 })}
             </select>
             <div className="product-details__product-details-description">
-              <h2>Details:</h2>
+              <h2>{lang === "en" ? "Details:" : "التفاصيل"}</h2>
               <pre onClick={() => setShowPopup(true)}>
                 {!data && <div className="product-details__skeleton"></div>}
                 {data && data.details}
@@ -315,17 +315,19 @@ const ProductDetailsPage = ({ currency, token }) => {
                 onClick={handleAddToCart}
               >
                 <span className="icon-shopping-cart"></span>
-                Add to cart
+                {lang === "en" ? "Add to cart" : "إضافة إلى العربة"}
               </button>
             ) : (
               <button className="product-details__carted">
                 <span className="icon-shopping-cart"></span>
-                Carted
+                {lang === "en" ? "Carted" : "مضافة في العربة"}
               </button>
             )}
           </div>
           <div className="product-details__other-products">
-            <h2 className="product-details__others-title">From category</h2>
+            <h2 className="product-details__others-title">
+              {lang === "en" ? "From category" : "من القسم"}
+            </h2>
             <div className="product-details__others-grid">
               {othersArray.length > 0 &&
                 othersArray.map((item, index) => {
@@ -351,6 +353,7 @@ function mapStateToProps(state) {
   return {
     token: state.token,
     currency: state.currency,
+    lang: state.lang,
   };
 }
 

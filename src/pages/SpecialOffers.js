@@ -52,6 +52,9 @@ const SpecialOffersProduct = ({ name, price, path, picture, stars }) => {
 };
 
 const SpecialOffers = () => {
+  const amountOfProducts = 10;
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(2);
   const [specialOffersArray, setSpecialOffersArray] = useState([]);
 
   useEffect(() => {
@@ -71,27 +74,77 @@ const SpecialOffers = () => {
       });
     });
   }, []);
+  useEffect(() => {
+    setTotalPages(Math.ceil(specialOffersArray.length / amountOfProducts));
+  }, [specialOffersArray]);
   return (
     <>
       <NavBar />
       <Container>
         <div className="special-offers">
           {specialOffersArray &&
-            specialOffersArray.map((specialProduct, index) => {
-              return (
-                <SpecialOffersProduct
-                  key={index}
-                  name={specialProduct.name}
-                  picture={specialProduct.image[0]}
-                  stars={specialProduct.rate}
-                  price={specialProduct.price}
-                  path={`/${specialProduct.category}/${specialProduct.productID}`}
-                />
-              );
-            })}
+            specialOffersArray
+              .slice(amountOfProducts * (page - 1), page * amountOfProducts)
+              .map((specialProduct, index) => {
+                return (
+                  <SpecialOffersProduct
+                    key={index}
+                    name={specialProduct.name}
+                    picture={specialProduct.image[0]}
+                    stars={specialProduct.rate}
+                    price={specialProduct.price}
+                    path={`/${specialProduct.category}/${specialProduct.productID}`}
+                  />
+                );
+              })}
         </div>
+        <Pagination page={page} totalPages={totalPages} setPage={setPage} />
       </Container>
     </>
+  );
+};
+const Pagination = ({ page, totalPages, setPage }) => {
+  const handleNextPage = () => {
+    if (page + 1 > totalPages) return;
+    setPage(page + 1);
+  };
+
+  const handlePreviousPage = () => {
+    if (page - 1 < 1) return;
+    setPage(page - 1);
+  };
+
+  const handleDynamicPagination = (event) => {
+    if (event.target.value < 1) return;
+    if (event.target.value > totalPages) return;
+    setPage(event.target.value);
+  };
+
+  const handlePagination = (event) => {
+    event.preventDefault();
+  };
+
+  return (
+    <form className="category__pagination-wrapper" onSubmit={handlePagination}>
+      <button
+        className="category__pagination-button"
+        onClick={handlePreviousPage}
+      >
+        &lt;
+      </button>
+      <input
+        className="category__pagination-input"
+        type="number"
+        value={page}
+        min={1}
+        max={totalPages}
+        onChange={handleDynamicPagination}
+      />
+      <p className="category__pagination-total">/ {totalPages}</p>
+      <button className="category__pagination-button" onClick={handleNextPage}>
+        &gt;
+      </button>
+    </form>
   );
 };
 

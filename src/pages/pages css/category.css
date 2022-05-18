@@ -1,3 +1,7 @@
+.arabic .products-grid {
+  direction: rtl;
+}
+
 .products-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -25,6 +29,10 @@
   transform: rotate(40deg);
 }
 
+.arabic .categorized-product.special-product::after {
+  content: "عرض خاص";
+}
+
 .categorized-product__img-wrapper {
   width: 100%;
   height: 190px;
@@ -49,8 +57,11 @@
 .categorized-product__product-name {
   width: max-content;
   max-width: 100%;
-  color: initial;
+  white-space: nowrap;
   text-decoration: none;
+  text-overflow: ellipsis;
+  color: initial;
+  overflow: hidden;
 }
 
 .categorized-product__product-price {
@@ -72,4 +83,39 @@
 .loading {
   color: gray;
   font-size: 1.5rem;
+}
+
+.category__pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.category__pagination-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  font-family: monospace;
+  font-weight: bold;
+  line-height: 100px;
+  cursor: pointer;
+}
+
+.category__pagination-input {
+  -moz-appearance: textfield;
+  text-align: center;
+  margin-bottom: 30px;
+  background-color: transparent;
+  border: 1px solid black;
+  outline: none;
+}
+
+.category__pagination-input::-webkit-outer-spin-button,
+.category__pagination-input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0;
 }

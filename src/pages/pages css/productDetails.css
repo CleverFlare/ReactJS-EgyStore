@@ -1,3 +1,6 @@
+.arabic .product-details {
+  direction: rtl;
+}
 .product-details {
   display: grid;
   grid-template-columns: 45% 1fr;

@@ -1,7 +1,7 @@
 import "./components css/header.css";
 import Container from "./Container";
 import { connect } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Header = ({ lang, search, searchDispatch }) => {
@@ -48,10 +48,13 @@ const Header = ({ lang, search, searchDispatch }) => {
             {langWords.searchButton}
           </button>
         </form>
-        <button className="header-sec__cart-button second-button-style">
+        <Link
+          to="/account"
+          className="header-sec__cart-button second-button-style"
+        >
           <span className="icon-shopping-cart"></span>
           <p>{langWords.cart}</p>
-        </button>
+        </Link>
       </div>
     </Container>
   );

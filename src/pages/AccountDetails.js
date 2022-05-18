@@ -79,7 +79,9 @@ const CartItem = ({
         </Link>
         {size && <p className="cart__item-size">size: {size}</p>}
       </div>
-      <p className="cart__item-color">{color}</p>
+      <p className="cart__item-color">
+        {color === "transparent" ? "default" : color}
+      </p>
       <div className="cart__amount-wrapper">
         <p className="cart__amount">{amount}</p>
         <div className="cart__amount-buttons">
@@ -107,7 +109,7 @@ const CartItem = ({
   );
 };
 
-const AccountDetails = ({ cred, signoutDispatch, currency }) => {
+const AccountDetails = ({ cred, signoutDispatch, currency, lang }) => {
   const [userData, setUserData] = useState(null);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -118,7 +120,9 @@ const AccountDetails = ({ cred, signoutDispatch, currency }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!cred) return;
+    if (!cred) {
+      return navigate("/account/login");
+    }
     const docRef = doc(db, "users", cred.uid);
     onSnapshot(docRef, (snapshot) => {
       setUsername(snapshot.data().username);
@@ -242,7 +246,7 @@ const AccountDetails = ({ cred, signoutDispatch, currency }) => {
       <Container>
         <div className="account-details">
           <Link className="account-details__home" to="/">
-            &lt; Home
+            &lt; {lang === "en" ? "Home" : "الرئيسية"}
           </Link>
           <label
             htmlFor="account-details__file-input"
@@ -256,7 +260,7 @@ const AccountDetails = ({ cred, signoutDispatch, currency }) => {
             onChange={handleUploadPfp}
           />
           <div className="account-details__input-wrapper">
-            <label htmlFor="">e-mail</label>
+            <label htmlFor="">{lang === "en" ? "e-mail" : "الإيميل"}</label>
             <input
               className="account-details__email-input"
               type="email"
@@ -268,7 +272,9 @@ const AccountDetails = ({ cred, signoutDispatch, currency }) => {
             />
           </div>
           <div className="account-details__input-wrapper">
-            <label htmlFor="">username</label>
+            <label htmlFor="">
+              {lang === "en" ? "username" : "اسم المستخدم"}
+            </label>
             <input
               className="account-details__username-input"
               type="text"
@@ -280,7 +286,9 @@ const AccountDetails = ({ cred, signoutDispatch, currency }) => {
             />
           </div>
           <div className="account-details__input-wrapper">
-            <label htmlFor="">password</label>
+            <label htmlFor="">
+              {lang === "en" ? "password" : "كلمة المرور"}
+            </label>
             <input
               type={!editing ? "password" : "text"}
               className="account-details__password-input"
@@ -297,13 +305,13 @@ const AccountDetails = ({ cred, signoutDispatch, currency }) => {
                 className="account-details__edit-button"
                 onClick={handleSubmitEdit}
               >
-                done
+                {lang === "en" ? "done" : "تم"}
               </button>
               <button
                 className="account-details__edit-cancle-button"
                 onClick={handleCancleEditing}
               >
-                cancle
+                {lang === "en" ? "cancle" : "إلغاء"}
               </button>
             </div>
           )}
@@ -313,25 +321,25 @@ const AccountDetails = ({ cred, signoutDispatch, currency }) => {
                 className="account-details__edit-button"
                 onClick={handleStartEditing}
               >
-                edit your profile info
+                {lang === "en" ? "edit" : "تعديل"}
               </button>
               <button
                 className="account-details__singout-button"
                 onClick={handleSingout}
               >
-                signout
+                {lang === "en" ? "signout" : "تسجيل خروج"}
               </button>
               <button
                 className="account-details__delete-account-button"
                 onClick={handleDeleteAccount}
               >
-                delete account
+                {lang === "en" ? "delete account" : "حذف الحساب"}
               </button>
             </div>
           )}
         </div>
-        <div className="cart">
-          <h2>Your cart</h2>
+        <div className="cart" id="cart">
+          {lang === "en" ? <h2>Your cart</h2> : <h2>عربة تسوقك</h2>}
           {cart &&
             Object.keys(cart).map((item) => {
               const product = cart[item];
@@ -350,7 +358,8 @@ const AccountDetails = ({ cred, signoutDispatch, currency }) => {
                 />
               );
             })}
-          {!cart && <p>No Products</p>}
+          {!cart &&
+            (lang === "en" ? <p>No Products</p> : <p>لا توجد منتجات</p>)}
         </div>
       </Container>
     </>
@@ -361,6 +370,7 @@ function mapStateToProps(state) {
   return {
     cred: state.cred,
     currency: state.currency,
+    lang: state.lang,
   };
 }
 

@@ -25,6 +25,10 @@
   transform: rotate(40deg);
 }
 
+.arabic .special-offers__product-item::after {
+  content: "عرض خاص";
+}
+
 .special-offers__image-wrapper {
   width: 100%;
   height: 190px;
@@ -50,7 +54,10 @@
   width: max-content;
   max-width: 100%;
   color: initial;
+  white-space: nowrap;
   text-decoration: none;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .special-offers__product-price {

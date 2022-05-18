@@ -146,6 +146,37 @@ body:has(.moveForMenu) {
 .phone-menu__pick-lang option {
   color: black;
 }
+.arabic .phone-searchbar {
+  direction: rtl;
+}
+.phone-searchbar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  width: 100%;
+  position: absolute;
+  top: 60px;
+  height: 50px;
+  overflow: hidden;
+  background-color: red;
+  transition: .5s;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.phone-searchbar.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
+}
+.phone-searchbar input {
+  padding: 0 10px;
+  border: none;
+  border-right: 1px solid gray;
+  outline: none;
+}
+.phone-searchbar button {
+  padding: 0 10px;
+}
 @media screen and (max-width: 768px) {
   .phone-nav {
     display: initial;

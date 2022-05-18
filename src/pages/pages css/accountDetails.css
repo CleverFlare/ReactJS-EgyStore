@@ -1,3 +1,7 @@
+.arabic .account-details {
+  direction: rtl;
+}
+
 .account-details {
   display: grid;
   grid-template-columns: 50% 50%;
@@ -91,6 +95,10 @@
   cursor: pointer;
 }
 
+.arabic .cart {
+  direction: rtl;
+}
+
 .cart {
   display: flex;
   flex-direction: column;
@@ -111,6 +119,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
   width: 100%;
   padding: 10px;
   background-color: rgb(216, 216, 216);
@@ -153,6 +162,7 @@
 
 .cart__item-size {
   color: rgb(128, 128, 128);
+  text-transform: uppercase;
 }
 
 .cart__amount-wrapper {
@@ -200,5 +210,20 @@
   }
   .account-details__input-wrapper {
     width: 100%;
+  }
+  .cart__item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+  .cart__image-wrapper {
+    grid-column: 1 / 5;
+    width: 100%;
+  }
+  .cart__item-price {
+    direction: rtl;
+    grid-column: 3 / 5;
+  }
+  .cart__remove-button {
+    margin-left: auto;
   }
 }

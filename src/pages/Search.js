@@ -37,9 +37,13 @@ const SearchedProduct = ({ name, price, path, picture, stars }) => {
         <ul className="search__product-rate">
           {starsTemplate.map((star, index) => {
             if (index < stars) {
-              return <li className="stard">★</li>;
+              return (
+                <li className="stard" key={index}>
+                  ★
+                </li>
+              );
             } else {
-              return <li>★</li>;
+              return <li key={index}>★</li>;
             }
           })}
         </ul>
@@ -69,7 +73,6 @@ const SearchPage = ({ search }) => {
           product.productID = item;
           setSearchedArray((oldArray) => [...oldArray, product]);
         });
-        console.log(searchedArray);
       });
     });
   }, [search]);

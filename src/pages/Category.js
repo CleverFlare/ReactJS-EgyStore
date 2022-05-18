@@ -55,13 +55,19 @@ const Product = ({ data, id, currency }) => {
 };
 
 const CategoryPage = ({ currency }) => {
+  const amountOfProducts = 10;
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(2);
   const [data, setData] = useState(null);
   const { category } = useParams();
 
   useEffect(() => {
     getDocs(colRef).then((snapshot) => {
+      // console.log(snapshot.docs.length / 10);
       snapshot.docs.forEach((doc) => {
         if (doc.id === category) {
+          const limit = Math.ceil(Object.keys(doc.data()).length / 10);
+          setTotalPages(limit);
           return setData(doc.data());
         }
         return;
@@ -75,19 +81,67 @@ const CategoryPage = ({ currency }) => {
         <div className="products-grid excluded-fonts">
           {!data && <p className="loading">Loading...</p>}
           {data &&
-            Object.keys(data).map((item, index) => {
-              return (
-                <Product
-                  key={index}
-                  data={data[item]}
-                  id={item}
-                  currency={currency}
-                />
-              );
-            })}
+            Object.keys(data)
+              .slice(amountOfProducts * (page - 1), page * amountOfProducts)
+              .map((item, index) => {
+                return (
+                  <Product
+                    key={index}
+                    data={data[item]}
+                    id={item}
+                    currency={currency}
+                  />
+                );
+              })}
         </div>
+        <Pagination page={page} totalPages={totalPages} setPage={setPage} />
       </Container>
     </>
+  );
+};
+
+const Pagination = ({ page, totalPages, setPage }) => {
+  const handleNextPage = () => {
+    if (page + 1 > totalPages) return;
+    setPage(page + 1);
+  };
+
+  const handlePreviousPage = () => {
+    if (page - 1 < 1) return;
+    setPage(page - 1);
+  };
+
+  const handleDynamicPagination = (event) => {
+    if (event.target.value < 1) return;
+    if (event.target.value > totalPages) return;
+    setPage(event.target.value);
+  };
+
+  const handlePagination = (event) => {
+    event.preventDefault();
+  };
+
+  return (
+    <form className="category__pagination-wrapper" onSubmit={handlePagination}>
+      <button
+        className="category__pagination-button"
+        onClick={handlePreviousPage}
+      >
+        &lt;
+      </button>
+      <input
+        className="category__pagination-input"
+        type="number"
+        value={page}
+        min={1}
+        max={totalPages}
+        onChange={handleDynamicPagination}
+      />
+      <p className="category__pagination-total">/ {totalPages}</p>
+      <button className="category__pagination-button" onClick={handleNextPage}>
+        &gt;
+      </button>
+    </form>
   );
 };
 
