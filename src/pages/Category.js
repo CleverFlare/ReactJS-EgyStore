@@ -63,22 +63,16 @@ const CategoryPage = ({ currency }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getDocs(colRef)
-      .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          if (doc.id === category) {
-            const limit = Math.ceil(Object.keys(doc.data()).length / 10);
-            setTotalPages(limit);
-            return setData(doc.data());
-          } else {
-            throw Error("not found");
-          }
-          return;
-        });
-      })
-      .catch((err) => {
-        navigate("/notfound");
+    getDocs(colRef).then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        if (doc.id === category) {
+          const limit = Math.ceil(Object.keys(doc.data()).length / 10);
+          setTotalPages(limit);
+          return setData(doc.data());
+        }
+        return;
       });
+    });
   }, []);
   return (
     <>

@@ -35,7 +35,6 @@ function App({ lang, setCred }) {
     <Router>
       <>
         <Routes>
-          <Route path="/notfound" element={<NotFound />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/:category" element={<CategoryPage />} />
@@ -44,9 +43,10 @@ function App({ lang, setCred }) {
             element={<ProductDetailsPage />}
           />
           <Route path="/account/:form" element={<Sign />} />
-          {auth.currentUser && (
-            <Route path="/account" element={<AccountDetails />} />
-          )}
+          <Route
+            path="/account"
+            element={auth.currentUser ? <AccountDetails /> : <NotFound />}
+          />
           <Route path="/specialoffers" element={<SpecialOffers />} />
           <Route path="/brands" element={<Brands />} />
         </Routes>
